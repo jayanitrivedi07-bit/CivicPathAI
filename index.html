@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VoteSathi — Your intelligent, interactive guide to India's election process. Learn how elections work, your voter rights, and how to cast your vote confidently." />
+  <meta name="keywords" content="India elections, how to vote, voter ID, EVM, election process, democracy, VoteSathi" />
+  <meta name="author" content="VoteSathi — CivicPathAI" />
+  <meta property="og:title" content="VoteSathi — Understand Democracy. Step by Step." />
+  <meta property="og:description" content="India's most interactive election education platform for every citizen." />
+  <meta property="og:type" content="website" />
+  <title>VoteSathi — Understand Democracy. Step by Step. 🗳️</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <!-- Favicon (inline SVG as data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     INDIA FLAG STRIPE
+═══════════════════════════════════════════════════════ -->
+<div class="flag-stripe"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════════════ -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a href="#home" class="nav-logo" id="nav-logo">
+      <div class="nav-logo-icon">🗳️</div>
+      <span>Vote<span style="color:var(--color-primary)">Sathi</span></span>
+    </a>
+
+    <!-- Links -->
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="#home" data-i18n="navHome">Home</a></li>
+      <li><a href="#overview" data-i18n="navOverview">Overview</a></li>
+      <li><a href="#timeline" data-i18n="navTimeline">Timeline</a></li>
+      <li><a href="#journey" data-i18n="navJourney">Voter Journey</a></li>
+      <li><a href="#sim" data-i18n="navSimulator">Simulator</a></li>
+      <li><a href="#faq" data-i18n="navFAQ">FAQs</a></li>
+      <li><a href="#myth" data-i18n="navMyths">Myth vs Fact</a></li>
+      <li><a href="#quiz" data-i18n="navQuiz">Quiz</a></li>
+    </ul>
+
+    <!-- Controls -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="lang-toggle" aria-label="Switch language" title="Switch to Hindi">हिंदी</button>
+      <button class="nav-btn" id="textsize-toggle" aria-label="Toggle text size" title="Toggle large text">🔠</button>
+      <button class="nav-btn" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">☀️</button>
+      <a href="#journey" class="nav-btn nav-btn-primary" id="nav-cta">Start Journey →</a>
+    </div>
+
+    <!-- Hamburger -->
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+
+      <!-- Personalized greeting (shown after onboarding) -->
+      <div id="hero-greeting" style="display:none; background:var(--color-secondary-light); border:1px solid rgba(19,136,8,0.3); color:#4caf50; font-size:var(--font-sm); font-weight:600; padding:10px 20px; border-radius:var(--radius-full); margin-bottom:20px; animation:fadeSlideUp 0.5s ease;"></div>
+
+      <!-- Trust badge -->
+      <div class="hero-badge reveal">
+        <span>🇮🇳</span>
+        <span class="trust-badge">✓ Verified Information</span>
+        <span>Powered by ECI Data</span>
+      </div>
+
+      <!-- Main title -->
+      <h1 class="hero-title" id="hero-title">
+        <span class="line1" data-i18n="heroTitle">Understand Democracy.</span>
+        <span class="line2" data-i18n="heroSubtitle">Step by Step.</span>
+      </h1>
+
+      <!-- Description -->
+      <p class="hero-description" data-i18n="heroDesc">
+        Your complete guide to India's election process — visual, interactive, and made for every citizen.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-actions">
+        <a href="#journey" class="btn-primary" id="btn-journey" data-i18n="heroBtn">
+          🗳️ Begin Your Journey
+        </a>
+        <a href="#quiz" class="btn-secondary" id="btn-quiz" data-i18n="heroBtnQuiz">
+          🏆 Take the Quiz
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <span class="hero-stat-value shimmer-text" data-count="970" data-suffix="M+">0M+</span>
+          <span class="hero-stat-label">Registered Voters</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value shimmer-text" data-count="7" data-suffix="">0</span>
+          <span class="hero-stat-label">Election Phases</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value shimmer-text" data-count="543" data-suffix="">0</span>
+          <span class="hero-stat-label">Lok Sabha Seats</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value shimmer-text" data-count="1950" data-suffix="">0</span>
+          <span class="hero-stat-label">Voter Helpline</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     OVERVIEW SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">📋 About Elections</div>
+      <h2 class="section-title reveal" data-i18n="overviewTitle">What Are Elections?</h2>
+      <p class="section-subtitle reveal">Democracy is built on the power of your vote. Here's why elections matter and how you fit in.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="overview-card reveal reveal-delay-1 glow-on-hover">
+        <span class="overview-icon">🏛️</span>
+        <h3>Democracy's Foundation</h3>
+        <p>Elections are the cornerstone of democracy — they give citizens the power to choose their representatives and hold them accountable. India is the world's largest democracy with 970+ million voters.</p>
+      </div>
+      <div class="overview-card reveal reveal-delay-2 glow-on-hover">
+        <span class="overview-icon">⚖️</span>
+        <h3>Article 326 — Right to Vote</h3>
+        <p>The Indian Constitution guarantees every citizen aged 18+ the right to vote (Universal Adult Suffrage). This right is equal regardless of religion, caste, gender, or economic status.</p>
+      </div>
+      <div class="overview-card reveal reveal-delay-3 glow-on-hover">
+        <span class="overview-icon">🗳️</span>
+        <h3>Your Vote = Your Voice</h3>
+        <p>Many elections in India are won by margins of fewer than 200 votes. Your single vote genuinely changes outcomes. It's not just a right — it's your most powerful civic tool.</p>
+      </div>
+      <div class="overview-card reveal reveal-delay-4 glow-on-hover">
+        <span class="overview-icon">📋</span>
+        <h3>Types of Elections</h3>
+        <p>India holds <strong style="color:var(--color-primary)">Lok Sabha</strong> (national), <strong style="color:var(--color-accent)">Vidhan Sabha</strong> (state), and local body elections. The Election Commission of India conducts all of them independently.</p>
+      </div>
+      <div class="overview-card reveal reveal-delay-5 glow-on-hover">
+        <span class="overview-icon">🔐</span>
+        <h3>Secret Ballot Guaranteed</h3>
+        <p>Your vote is completely anonymous. No one — not the government, not election officials — can ever find out who you voted for. This is protected by law.</p>
+      </div>
+      <div class="overview-card reveal reveal-delay-6 glow-on-hover">
+        <span class="overview-icon">🌐</span>
+        <h3>The Election Commission</h3>
+        <p>An autonomous constitutional authority, the ECI operates independently from the government. It ensures free and fair elections through strict monitoring and enforcement of the Model Code of Conduct.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TIMELINE SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section timeline-section" id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">🗺️ Election Journey</div>
+      <h2 class="section-title reveal" data-i18n="timelineTitle">Election Timeline</h2>
+      <p class="section-subtitle reveal">Click on any phase to learn what happens at each stage of India's election process.</p>
+    </div>
+  </div>
+
+  <!-- Full-width scrollable timeline -->
+  <div class="timeline-container" role="region" aria-label="Election timeline" tabindex="0">
+    <div class="timeline-track" id="timeline-track">
+      <!-- Rendered by TimelineEngine.render() -->
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Detail panel -->
+    <div class="timeline-detail" id="timeline-detail" role="region" aria-live="polite"></div>
+
+    <!-- Timeline navigation hint -->
+    <p style="text-align:center; color:var(--text-muted); font-size:var(--font-xs); margin-top:24px; animation: fadeIn 1s ease;">
+      👆 Click any phase above to explore details · Scroll horizontally on mobile
+    </p>
+  </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     VOTER JOURNEY SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="journey">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">👤 Your Personal Guide</div>
+      <h2 class="section-title reveal" data-i18n="journeyTitle">Your Voter Journey</h2>
+      <p class="section-subtitle reveal">A step-by-step guide customized for you — from checking eligibility to casting your vote.</p>
+    </div>
+
+    <div class="journey-wrapper reveal">
+      <!-- Sidebar nav -->
+      <div class="journey-sidebar">
+        <div class="journey-sidebar-title">Journey Steps</div>
+        <ul class="journey-step-nav" role="list" id="journey-nav">
+          <!-- Rendered by JourneyEngine -->
+        </ul>
+      </div>
+
+      <!-- Main content -->
+      <div class="journey-main" id="journey-main" role="region" aria-live="polite">
+        <!-- Rendered by JourneyEngine -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ELECTION SIMULATOR SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="sim" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">🎮 Try It Yourself</div>
+      <h2 class="section-title reveal" data-i18n="simTitle">Election Simulator</h2>
+      <p class="section-subtitle reveal">Experience the complete mock polling booth — from arrival to the VVPAT slip. No real votes cast!</p>
+    </div>
+
+    <div class="simulator-container reveal">
+      <div class="simulator-booth">
+        <div class="simulator-header">
+          <h3>🏫 Mock Polling Booth</h3>
+          <p>Interactive simulation — safe & educational</p>
+        </div>
+        <div class="simulator-body" id="simulator-body">
+          <!-- Step indicator -->
+          <div class="simulator-step-indicator" id="sim-indicator"></div>
+          <!-- Steps rendered by SimulatorEngine -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Simulator info chips -->
+    <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:32px;">
+      <div class="trust-badge">🔒 No real votes cast</div>
+      <div class="trust-badge">📱 Works on all devices</div>
+      <div class="trust-badge">🎓 Educational purpose only</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FAQ SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">❓ Got Questions?</div>
+      <h2 class="section-title reveal" data-i18n="faqTitle">Frequently Asked Questions</h2>
+      <p class="section-subtitle reveal">Everything you need to know about voting in India — answered simply and clearly.</p>
+    </div>
+
+    <!-- Search bar -->
+    <div class="faq-search-wrapper reveal">
+      <span class="faq-search-icon">🔍</span>
+      <input
+        type="search"
+        class="faq-search"
+        id="faq-search"
+        placeholder="Search questions..."
+        data-i18n-placeholder="chatPlaceholder"
+        aria-label="Search FAQs"
+      />
+    </div>
+
+    <!-- FAQ list -->
+    <div class="faq-list" id="faq-list" role="list">
+      <!-- Rendered by FAQEngine -->
+    </div>
+
+    <!-- Helpline CTA -->
+    <div style="text-align:center; margin-top:48px;" class="reveal">
+      <p style="color:var(--text-secondary); margin-bottom:16px;">Still have questions? Reach the official Voter Helpline</p>
+      <a href="tel:1950" class="btn-primary" style="display:inline-flex;">
+        📞 Call 1950 — Free Voter Helpline
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MYTH VS FACT SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="myth" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">🔍 Truth Check</div>
+      <h2 class="section-title reveal" data-i18n="mythTitle">Myth vs Fact</h2>
+      <p class="section-subtitle reveal">Combat election misinformation. Click each card to reveal the truth behind common myths.</p>
+    </div>
+
+    <div class="myths-grid" id="myths-grid" role="list">
+      <!-- Rendered by MythEngine -->
+    </div>
+
+    <p style="text-align:center; color:var(--text-muted); font-size:var(--font-sm); margin-top:32px;" class="reveal">
+      👆 Click any card to flip and reveal the fact
+    </p>
+  </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     QUIZ SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="section" id="quiz">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">🏆 Test Your Knowledge</div>
+      <h2 class="section-title reveal" data-i18n="quizTitle">Civic Knowledge Quiz</h2>
+      <p class="section-subtitle reveal">Answer 10 questions about India's election process and earn your badge!</p>
+    </div>
+
+    <div class="quiz-container reveal">
+      <!-- Progress header -->
+      <div class="quiz-progress-header">
+        <span class="quiz-qnum">Question 1 of 10</span>
+        <span class="quiz-score">Score: 0/0</span>
+      </div>
+      <div class="quiz-progress-track">
+        <div class="quiz-progress-fill" style="width:0%"></div>
+      </div>
+
+      <!-- Quiz card -->
+      <div class="quiz-card">
+        <p class="quiz-question-text"></p>
+        <div class="quiz-options"></div>
+        <div class="quiz-explanation"></div>
+        <button class="btn-primary quiz-next-btn">Next Question →</button>
+      </div>
+
+      <!-- Result screen -->
+      <div class="quiz-result">
+        <!-- Filled by QuizEngine.showResult() -->
+      </div>
+    </div>
+
+    <!-- Badges display -->
+    <div style="text-align:center; margin-top:48px;" class="reveal">
+      <p style="color:var(--text-secondary); margin-bottom:20px; font-size:var(--font-sm);">
+        🏅 Earn badges as you explore VoteSathi
+      </p>
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <div class="badge-chip badge-green" id="badge-first">🟢 First-time Voter</div>
+        <div class="badge-chip badge-yellow" id="badge-explorer">🟡 Democracy Explorer</div>
+        <div class="badge-chip badge-blue" id="badge-expert">🔵 Civic Expert</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <!-- Profile display (personalized) -->
+    <div id="profile-display" style="display:flex; gap:16px; justify-content:center; font-size:var(--font-xs); color:var(--text-muted); margin-bottom:24px; flex-wrap:wrap;"></div>
+
+    <div class="footer-logo">🗳️ VoteSathi</div>
+    <p class="footer-tagline">Understand Democracy. Step by Step.</p>
+
+    <ul class="footer-links" role="list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#journey">Voter Journey</a></li>
+      <li><a href="#sim">Simulator</a></li>
+      <li><a href="#faq">FAQs</a></li>
+      <li><a href="#myth">Myth vs Fact</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
+      <div class="trust-badge">✓ Verified Information</div>
+      <div class="trust-badge">🔒 No Data Collected</div>
+      <div class="trust-badge">🇮🇳 Made for Indian Citizens</div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p>
+        Official Voter Helpline: <strong>1950</strong> ·
+        <a href="https://voters.eci.gov.in" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);">voters.eci.gov.in</a> ·
+        <a href="https://eci.gov.in" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);">eci.gov.in</a>
+      </p>
+      <p style="margin-top:8px;">© 2024 VoteSathi — CivicPathAI · Built to strengthen India's democracy 🇮🇳</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     GLOBAL PROGRESS BAR (Bottom)
+═══════════════════════════════════════════════════════ -->
+<div class="progress-bar-container" role="status" aria-label="Journey progress">
+  <span class="progress-label" data-i18n="progress">Your Journey Progress</span>
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill"></div>
+  </div>
+  <span class="progress-pct">0%</span>
+  <div class="badges-row">
+    <div class="badge-chip badge-green" id="badge-first-bar" style="font-size:10px; padding:4px 10px;">🟢</div>
+    <div class="badge-chip badge-yellow" id="badge-explorer-bar" style="font-size:10px; padding:4px 10px;">🟡</div>
+    <div class="badge-chip badge-blue" id="badge-expert-bar" style="font-size:10px; padding:4px 10px;">🔵</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAT WIDGET
+═══════════════════════════════════════════════════════ -->
+<div class="chat-widget" role="complementary" aria-label="Election assistant chat">
+  <!-- Toggle Button -->
+  <button class="chat-toggle-btn" id="chat-toggle" aria-label="Open VoteSathi chat assistant" aria-haspopup="dialog">
+    <span class="chat-toggle-icon">🤖</span>
+    <span class="chat-toggle-close" style="display:none;font-size:24px;">✕</span>
+    <div class="chat-notification" aria-label="1 new message">1</div>
+  </button>
+
+  <!-- Chat Panel -->
+  <div class="chat-panel" id="chat-panel" role="dialog" aria-modal="false" aria-label="VoteSathi Election Assistant">
+    <div class="chat-header">
+      <div class="chat-bot-avatar">🤖</div>
+      <div class="chat-bot-info">
+        <h4>VoteSathi Bot</h4>
+        <div class="chat-bot-status">
+          <div class="chat-online-dot"></div>
+          Online · Election Expert
+        </div>
+      </div>
+      <button class="chat-close" id="chat-close" aria-label="Close chat">✕</button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
+
+    <!-- Quick suggestions -->
+    <div class="chat-suggestions" id="chat-suggestions"></div>
+
+    <!-- Input area -->
+    <div class="chat-input-area">
+      <input
+        type="text"
+        class="chat-input"
+        id="chat-input"
+        placeholder="Ask me anything about elections..."
+        data-i18n-placeholder="chatPlaceholder"
+        aria-label="Type your election question"
+        autocomplete="off"
+        maxlength="200"
+      />
+      <button class="chat-send-btn" id="chat-send" aria-label="Send message">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ONBOARDING MODAL
+═══════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="onboarding-modal" role="dialog" aria-modal="true"
+     aria-labelledby="modal-title" aria-describedby="modal-desc">
+  <div class="modal-card">
+    <div class="modal-header">
+      <span class="modal-emoji">🗳️</span>
+      <h2 class="modal-title" id="modal-title">Welcome to VoteSathi!</h2>
+      <p class="modal-subtitle" id="modal-desc">Tell us a little about yourself so we can personalize your election education journey.</p>
+    </div>
+
+    <form id="onboarding-form" novalidate>
+      <!-- Age -->
+      <div class="modal-field">
+        <label class="modal-label" for="user-age">Your Age *</label>
+        <input
+          type="number"
+          class="modal-input"
+          id="user-age"
+          placeholder="e.g. 22"
+          min="1" max="110"
+          required
+          aria-required="true"
+          aria-describedby="age-hint"
+        />
+        <small id="age-hint" style="color:var(--text-muted);font-size:11px;margin-top:4px;display:block;">
+          We'll show content relevant to your age group
+        </small>
+      </div>
+
+      <!-- First-time voter? -->
+      <div class="modal-field">
+        <label class="modal-label">Are you a first-time voter?</label>
+        <div class="modal-radio-group" role="radiogroup" aria-label="First-time voter selection">
+          <label class="modal-radio-label selected" id="radio-yes-label">
+            <input type="radio" name="first-time" value="yes" checked />
+            🆕 Yes, first time!
+          </label>
+          <label class="modal-radio-label" id="radio-no-label">
+            <input type="radio" name="first-time" value="no" />
+            🗳️ No, I've voted before
+          </label>
+        </div>
+      </div>
+
+      <!-- State -->
+      <div class="modal-field">
+        <label class="modal-label" for="user-state">Your State / Region</label>
+        <select class="modal-select" id="user-state" aria-label="Select your state">
+          <option value="">Select your state...</option>
+          <option>Andhra Pradesh</option>
+          <option>Arunachal Pradesh</option>
+          <option>Assam</option>
+          <option>Bihar</option>
+          <option>Chhattisgarh</option>
+          <option>Goa</option>
+          <option>Gujarat</option>
+          <option>Haryana</option>
+          <option>Himachal Pradesh</option>
+          <option>Jharkhand</option>
+          <option>Karnataka</option>
+          <option>Kerala</option>
+          <option>Madhya Pradesh</option>
+          <option>Maharashtra</option>
+          <option>Manipur</option>
+          <option>Meghalaya</option>
+          <option>Mizoram</option>
+          <option>Nagaland</option>
+          <option>Odisha</option>
+          <option>Punjab</option>
+          <option>Rajasthan</option>
+          <option>Sikkim</option>
+          <option>Tamil Nadu</option>
+          <option>Telangana</option>
+          <option>Tripura</option>
+          <option>Uttar Pradesh</option>
+          <option>Uttarakhand</option>
+          <option>West Bengal</option>
+          <option>Delhi</option>
+          <option>Jammu & Kashmir</option>
+          <option>Ladakh</option>
+        </select>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-primary modal-submit" id="onboarding-submit">
+        🚀 Start My Personalized Journey
+      </button>
+    </form>
+
+    <!-- Skip -->
+    <div style="text-align:center; margin-top:16px;">
+      <button id="skip-onboarding" style="background:none; border:none; color:var(--text-muted); font-size:var(--font-sm); cursor:pointer; text-decoration:underline;">
+        Skip for now
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS (order matters)
+═══════════════════════════════════════════════════════ -->
+<script src="js/data.js?v=2"></script>
+<script src="js/app.js?v=2"></script>
+<script src="js/personalization.js?v=2"></script>
+<script src="js/timeline.js?v=2"></script>
+<script src="js/journey.js?v=2"></script>
+<script src="js/quiz.js?v=2"></script>
+<script src="js/chat.js?v=2"></script>
+<script src="js/simulator.js?v=2"></script>
+
+
+
+</body>
+</html>
