@@ -11,7 +11,7 @@ const PersonalizationEngine = (() => {
   };
 
   function loadProfile() {
-    // Disabling localStorage read so the modal shows on every page reload
+    // Disabling localStorage read so the modal shows on every page reload for presentation
     profile.loaded = false;
   }
 

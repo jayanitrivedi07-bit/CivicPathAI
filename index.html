@@ -140,7 +140,7 @@
     <div class="section-header">
       <div class="section-label reveal">📋 About Elections</div>
       <h2 class="section-title reveal" data-i18n="overviewTitle">What Are Elections?</h2>
-      <p class="section-subtitle reveal">Democracy is built on the power of your vote. Here's why elections matter and how you fit in.</p>
+      <p class="section-subtitle reveal" data-i18n="overviewDesc">Democracy is built on the power of your vote. Here's why elections matter and how you fit in.</p>
     </div>
 
     <div class="grid-3">
@@ -188,7 +188,7 @@
     <div class="section-header">
       <div class="section-label reveal">🗺️ Election Journey</div>
       <h2 class="section-title reveal" data-i18n="timelineTitle">Election Timeline</h2>
-      <p class="section-subtitle reveal">Click on any phase to learn what happens at each stage of India's election process.</p>
+      <p class="section-subtitle reveal" data-i18n="timelineDesc">Click on any phase to learn what happens at each stage of India's election process.</p>
     </div>
   </div>
 
@@ -220,7 +220,7 @@
     <div class="section-header">
       <div class="section-label reveal">👤 Your Personal Guide</div>
       <h2 class="section-title reveal" data-i18n="journeyTitle">Your Voter Journey</h2>
-      <p class="section-subtitle reveal">A step-by-step guide customized for you — from checking eligibility to casting your vote.</p>
+      <p class="section-subtitle reveal" data-i18n="journeyDesc">A step-by-step guide customized for you — from checking eligibility to casting your vote.</p>
     </div>
 
     <div class="journey-wrapper reveal">
@@ -250,7 +250,7 @@
     <div class="section-header">
       <div class="section-label reveal">🎮 Try It Yourself</div>
       <h2 class="section-title reveal" data-i18n="simTitle">Election Simulator</h2>
-      <p class="section-subtitle reveal">Experience the complete mock polling booth — from arrival to the VVPAT slip. No real votes cast!</p>
+      <p class="section-subtitle reveal" data-i18n="simDesc">Experience the complete mock polling booth. No real votes cast!</p>
     </div>
 
     <div class="simulator-container reveal">
@@ -286,7 +286,7 @@
     <div class="section-header">
       <div class="section-label reveal">❓ Got Questions?</div>
       <h2 class="section-title reveal" data-i18n="faqTitle">Frequently Asked Questions</h2>
-      <p class="section-subtitle reveal">Everything you need to know about voting in India — answered simply and clearly.</p>
+      <p class="section-subtitle reveal" data-i18n="faqDesc">Everything you need to know about voting in India — answered simply and clearly.</p>
     </div>
 
     <!-- Search bar -->
@@ -504,14 +504,14 @@
   <div class="modal-card">
     <div class="modal-header">
       <span class="modal-emoji">🗳️</span>
-      <h2 class="modal-title" id="modal-title">Welcome to VoteSathi!</h2>
-      <p class="modal-subtitle" id="modal-desc">Tell us a little about yourself so we can personalize your election education journey.</p>
+      <h2 class="modal-title" id="modal-title" data-i18n="modalTitle">Welcome to VoteSathi!</h2>
+      <p class="modal-subtitle" id="modal-desc" data-i18n="modalDesc">Tell us about yourself to personalize your journey.</p>
     </div>
 
     <form id="onboarding-form" novalidate>
       <!-- Age -->
       <div class="modal-field">
-        <label class="modal-label" for="user-age">Your Age *</label>
+        <label class="modal-label" for="user-age" data-i18n="modalAge">Your Age *</label>
         <input
           type="number"
           class="modal-input"
@@ -529,10 +529,10 @@
 
       <!-- First-time voter? -->
       <div class="modal-field">
-        <label class="modal-label">Are you a first-time voter?</label>
+        <label class="modal-label" data-i18n="modalFirst">Are you a first-time voter?</label>
         <div class="modal-radio-group" role="radiogroup" aria-label="First-time voter selection">
-          <label class="modal-radio-label selected" id="radio-yes-label">
-            <input type="radio" name="first-time" value="yes" checked />
+          <label class="modal-radio-label" id="radio-yes-label">
+            <input type="radio" name="first-time" value="yes" />
             🆕 Yes, first time!
           </label>
           <label class="modal-radio-label" id="radio-no-label">
@@ -544,7 +544,7 @@
 
       <!-- State -->
       <div class="modal-field">
-        <label class="modal-label" for="user-state">Your State / Region</label>
+        <label class="modal-label" for="user-state" data-i18n="modalState">Your State / Region</label>
         <select class="modal-select" id="user-state" aria-label="Select your state">
           <option value="">Select your state...</option>
           <option>Andhra Pradesh</option>
@@ -582,14 +582,14 @@
       </div>
 
       <!-- Submit -->
-      <button type="submit" class="btn-primary modal-submit" id="onboarding-submit">
+      <button type="submit" class="btn-primary modal-submit" id="onboarding-submit" data-i18n="modalSubmit">
         🚀 Start My Personalized Journey
       </button>
     </form>
 
     <!-- Skip -->
     <div style="text-align:center; margin-top:16px;">
-      <button id="skip-onboarding" style="background:none; border:none; color:var(--text-muted); font-size:var(--font-sm); cursor:pointer; text-decoration:underline;">
+      <button id="skip-onboarding" data-i18n="modalSkip" style="background:none; border:none; color:var(--text-muted); font-size:var(--font-sm); cursor:pointer; text-decoration:underline;">
         Skip for now
       </button>
     </div>

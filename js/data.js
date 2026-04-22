@@ -463,7 +463,19 @@ const VOTESATHI_DATA = {
       progress: "Your Journey Progress",
       badgeFirst: "First-time Voter",
       badgeExplorer: "Democracy Explorer",
-      badgeExpert: "Civic Expert"
+      badgeExpert: "Civic Expert",
+      overviewDesc: "Democracy is built on the power of your vote. Here's why elections matter and how you fit in.",
+      timelineDesc: "Click on any phase to learn what happens at each stage of India's election process.",
+      journeyDesc: "A step-by-step guide customized for you — from checking eligibility to casting your vote.",
+      simDesc: "Experience the complete mock polling booth. No real votes cast!",
+      faqDesc: "Everything you need to know about voting in India — answered simply and clearly.",
+      modalTitle: "Welcome to VoteSathi!",
+      modalDesc: "Tell us about yourself to personalize your journey.",
+      modalAge: "Your Age *",
+      modalFirst: "Are you a first-time voter?",
+      modalState: "Your State / Region",
+      modalSubmit: "🚀 Start My Personalized Journey",
+      modalSkip: "Skip for now"
     },
     hi: {
       navHome: "होम",
@@ -495,7 +507,19 @@ const VOTESATHI_DATA = {
       progress: "आपकी यात्रा प्रगति",
       badgeFirst: "पहली बार मतदाता",
       badgeExplorer: "लोकतंत्र खोजकर्ता",
-      badgeExpert: "नागरिक विशेषज्ञ"
+      badgeExpert: "नागरिक विशेषज्ञ",
+      overviewDesc: "लोकतंत्र आपके वोट की शक्ति पर बना है। जानें कि चुनाव क्यों महत्वपूर्ण हैं।",
+      timelineDesc: "भारत की चुनाव प्रक्रिया के हर चरण को जानने के लिए किसी भी चरण पर क्लिक करें।",
+      journeyDesc: "पात्रता से लेकर वोट डालने तक — आपके लिए एक अनुकूलित मार्गदर्शिका।",
+      simDesc: "संपूर्ण मॉक मतदान केंद्र का अनुभव करें। कोई वास्तविक वोट नहीं डाला जाएगा!",
+      faqDesc: "भारत में मतदान के बारे में सब कुछ जानें - सरल और स्पष्ट शब्दों में।",
+      modalTitle: "VoteSathi में आपका स्वागत है!",
+      modalDesc: "अपनी यात्रा को अनुकूलित करने के लिए अपने बारे में बताएं।",
+      modalAge: "आपकी आयु *",
+      modalFirst: "क्या आप पहली बार मतदाता हैं?",
+      modalState: "आपका राज्य / क्षेत्र",
+      modalSubmit: "🚀 मेरी व्यक्तिगत यात्रा शुरू करें",
+      modalSkip: "अभी छोड़ें"
     }
   }
 };
