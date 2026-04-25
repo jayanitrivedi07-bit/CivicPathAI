@@ -39,30 +39,30 @@
           </button>
         </div>
 
-        <h3 class="section-title">One-Click Action Hub</h3>
+        <h3 class="section-title">The Standard Voting Journey 🗳️</h3>
         <div class="action-grid">
-          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')" role="button" aria-label="Register to Vote (External Link)" tabindex="0" onkeydown="handleKey(event, () => window.open('https://voters.eci.gov.in', '_blank'))">
-            <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></div>
+          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')" role="button" aria-label="Step 1: Register to Vote" tabindex="0">
+            <div class="icon-circle bg-purple">1</div>
             <span>Register</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-status')" role="button" aria-label="Check Voter Registration Status" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-status'))">
-            <div class="icon-circle bg-blue"><i class="fa-solid fa-id-card" aria-hidden="true"></i></div>
-            <span>Check Status</span>
+          <div class="action-card" onclick="navTo('screen-status')" role="button" aria-label="Step 2: Verify Eligibility" tabindex="0">
+            <div class="icon-circle bg-blue">2</div>
+            <span>Verify</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-booth')" role="button" aria-label="Find Polling Booth" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-booth'))">
-            <div class="icon-circle bg-orange"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></div>
+          <div class="action-card" onclick="navTo('screen-booth')" role="button" aria-label="Step 3: Find Polling Booth" tabindex="0">
+            <div class="icon-circle bg-orange">3</div>
             <span>Find Booth</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-checklist')" role="button" aria-label="View Document Checklist" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-checklist'))">
-            <div class="icon-circle bg-green"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div>
-            <span>Checklist</span>
+          <div class="action-card" onclick="navTo('screen-process')" role="button" aria-label="Step 4: Voting Day Process" tabindex="0">
+            <div class="icon-circle bg-green">4</div>
+            <span>The Process</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-reminders')" role="button" aria-label="Set Election Reminders" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-reminders'))">
-            <div class="icon-circle bg-teal"><i class="fa-solid fa-clock" aria-hidden="true"></i></div>
-            <span>Reminders</span>
+          <div class="action-card" onclick="navTo('screen-results')" role="button" aria-label="Step 5: View Results Overview" tabindex="0">
+            <div class="icon-circle bg-teal">5</div>
+            <span>Results</span>
           </div>
-          <div class="action-card" onclick="window.location.href='tel:1950'" role="button" aria-label="Call Voter Helpline 1950" tabindex="0" onkeydown="handleKey(event, () => window.location.href='tel:1950')">
-            <div class="icon-circle bg-red"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
+          <div class="action-card" onclick="window.location.href='tel:1950'" role="button" aria-label="Support: Call 1950" tabindex="0">
+            <div class="icon-circle bg-red"><i class="fa-solid fa-phone"></i></div>
             <span>Helpline</span>
           </div>
         </div>
@@ -249,6 +249,52 @@
           </div>
         </div>
         <button class="btn-primary mt-15" onclick="window.open('https://voters.eci.gov.in', '_blank')">Access Form 6A <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+      </section>
+
+      <!-- SCREEN: THE VOTING PROCESS -->
+      <section id="screen-process" class="screen">
+        <div class="screen-header">
+          <h2>🗳️ Voting Day Process</h2>
+          <p>What happens when you enter the polling booth.</p>
+        </div>
+        <div class="card p-0 overflow-hidden">
+          <div class="nri-step border-bottom">
+            <div class="nri-step-num">1</div>
+            <div class="nri-step-content">
+              <h4>Identification</h4>
+              <p>The first polling official checks your name on the electoral roll and your ID proof.</p>
+            </div>
+          </div>
+          <div class="nri-step border-bottom">
+            <div class="nri-step-num">2</div>
+            <div class="nri-step-content">
+              <h4>Inking & Signature</h4>
+              <p>The second official marks your finger with indelible ink, gives you a slip, and takes your signature.</p>
+            </div>
+          </div>
+          <div class="nri-step">
+            <div class="nri-step-num">3</div>
+            <div class="nri-step-content">
+              <h4>Casting Vote</h4>
+              <p>The third official takes the slip. You proceed to the booth and press the button next to your candidate on the EVM. Check the VVPAT slip.</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary mt-15" onclick="navTo('screen-home')">Back to Home</button>
+      </section>
+
+      <!-- SCREEN: ELECTION RESULTS -->
+      <section id="screen-results" class="screen">
+        <div class="screen-header">
+          <h2>📊 Election Results Overview</h2>
+          <p>Tracking the outcome of the democratic exercise.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom: 10px;">Counting Day</h3>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px;">Results are declared after the counting of votes. You can track real-time trends on the official ECI Results portal.</p>
+          <button class="btn-primary" onclick="window.open('https://results.eci.gov.in', '_blank')">ECI Results Portal <i class="fa-solid fa-square-poll-vertical"></i></button>
+        </div>
+        <button class="btn-secondary mt-15" onclick="navTo('screen-home')">Back to Home</button>
       </section>
 
     </main>

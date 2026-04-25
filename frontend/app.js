@@ -90,14 +90,21 @@ async function findBooth() {
     
     if (data.found) {
       const b = data.booth;
-      const navLink = b.google_maps_url || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
+      const navLink = b.google_maps_url;
+      const embedHtml = b.embed_url ? `
+        <div class="mt-15" style="border-radius: 12px; overflow: hidden; height: 200px; border: 1px solid var(--border);">
+          <iframe width="100%" height="100%" frameborder="0" style="border:0" src="${b.embed_url}" allowfullscreen></iframe>
+        </div>
+      ` : '';
+      
       resultDiv.innerHTML = `
-        <div class="booth-card">
+        <div class="booth-card" role="region" aria-label="Polling Booth Result">
           <h3>${b.name}</h3>
           <p><i class="fa-solid fa-map-pin"></i> ${b.address}</p>
-          <p><i class="fa-solid fa-person-walking"></i> Distance: ${b.distance}</p>
-          <button class="btn-secondary mt-10" onclick="window.open('${navLink}', '_blank')">
-            <i class="fa-solid fa-location-arrow"></i> Navigate
+          <p><i class="fa-solid fa-location-arrow"></i> <strong>Navigation:</strong> Ready</p>
+          ${embedHtml}
+          <button class="btn-primary mt-15" onclick="window.open('${navLink}', '_blank')" aria-label="Navigate to ${b.name} on Google Maps">
+            <i class="fa-solid fa-location-arrow"></i> Get Directions (Google Maps)
           </button>
         </div>
       `;

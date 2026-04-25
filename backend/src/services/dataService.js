@@ -1,30 +1,24 @@
-// Mock Database Service
-const db = {
-  booths: [
-    { booth_id: 'B001', name: 'Govt. Primary School, Sector 4', address: 'Sector 4, New Delhi - 110001', lat: 28.6139, lng: 77.2090, constituency: 'New Delhi', state: 'Delhi' },
-    { booth_id: 'B002', name: 'Community Hall, Andheri East', address: 'Andheri East, Mumbai - 400069', lat: 19.1136, lng: 72.8697, constituency: 'Mumbai North West', state: 'Maharashtra' }
-  ],
-  voters: [
-    { epic_number: 'ABC1234567', name: 'Rahul Sharma', dob: '1990-05-15', constituency: 'New Delhi', status: 'ACTIVE', polling_booth_id: 'B001' },
-    { epic_number: 'XYZ9876543', name: 'Priya Patel', dob: '1988-11-20', constituency: 'Mumbai North West', status: 'ACTIVE', polling_booth_id: 'B002' }
-  ],
-  reminders: []
+const firebaseService = require('./firebaseService');
+
+// This service now wraps Firestore operations
+const getVoterByEpic = async (epic) => {
+  return await firebaseService.getVoterByEpic(epic);
 };
 
-const getVoterByEpic = (epic) => {
-  return db.voters.find(v => v.epic_number.toUpperCase() === epic.toUpperCase());
+const getBoothById = async (id) => {
+  return await firebaseService.getDoc('booths', id);
 };
 
-const getBoothById = (id) => {
-  return db.booths.find(b => b.booth_id === id);
+const getAllBooths = async () => {
+  return await firebaseService.getAllDocs('booths');
 };
 
-const getAllBooths = () => {
-  return db.booths;
+const getTimeline = async () => {
+  return await firebaseService.getAllDocs('timeline');
 };
 
-const addReminder = (reminder) => {
-  db.reminders.push({ ...reminder, created_at: new Date() });
+const addReminder = async (reminder) => {
+  await firebaseService.addReminder(reminder);
   return true;
 };
 
@@ -32,5 +26,6 @@ module.exports = {
   getVoterByEpic,
   getBoothById,
   getAllBooths,
+  getTimeline,
   addReminder
 };

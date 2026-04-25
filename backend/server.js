@@ -41,12 +41,21 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 app.use('/api', apiLimiter, apiRoutes);
 
 // Health Check for monitoring
-app.get('/health', (req, res) => {
+app.get('/health', async (req, res) => {
+  let firestoreStatus = 'CONNECTED';
+  try {
+    const firebaseService = require('./src/services/firebaseService');
+    await firebaseService.db.collection('health').limit(1).get();
+  } catch (e) {
+    firestoreStatus = 'DISCONNECTED';
+  }
+
   res.json({ 
     status: 'UP', 
+    timestamp: new Date().toISOString(),
     services: {
-      maps: 'CONNECTED', // Mocked
-      voter_db: 'CONNECTED' // Mocked
+      maps: process.env.GOOGLE_MAPS_API_KEY ? 'READY' : 'MOCK_MODE',
+      firestore: firestoreStatus
     }
   });
 });
