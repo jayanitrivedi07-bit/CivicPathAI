@@ -86,20 +86,20 @@
         
         <div id="journey-input-card" class="card">
           <div class="input-group">
-            <label>Age</label>
-            <input type="number" id="journey-age" placeholder="e.g. 22" min="1" max="120" />
+            <label for="journey-age">Age</label>
+            <input type="number" id="journey-age" placeholder="e.g. 22" min="1" max="120" aria-required="true" />
           </div>
           <div class="input-group mt-15">
-            <label>Registration Status</label>
-            <select id="journey-reg-status">
+            <label for="journey-reg-status">Registration Status</label>
+            <select id="journey-reg-status" aria-required="true">
               <option value="" disabled selected>Select status</option>
               <option value="not-registered">Not Registered Yet</option>
               <option value="registered">Registered</option>
             </select>
           </div>
           <div class="input-group mt-15">
-            <label>Have you moved recently?</label>
-            <select id="journey-moved">
+            <label for="journey-moved">Have you moved recently?</label>
+            <select id="journey-moved" aria-required="true">
               <option value="" disabled selected>Select option</option>
               <option value="yes">Yes, to a different constituency/city</option>
               <option value="no">No</option>
@@ -108,7 +108,7 @@
           <button class="btn-primary mt-15" onclick="generateJourney()">Generate Roadmap <i class="fa-solid fa-arrow-right"></i></button>
         </div>
 
-        <div id="journey-roadmap" class="hidden">
+        <div id="journey-roadmap" class="hidden" aria-live="polite">
           <!-- Stepper UI generated here -->
         </div>
       </section>
@@ -121,12 +121,12 @@
         </div>
         <div class="card">
           <div class="input-group">
-            <label>EPIC Number OR PIN Code</label>
-            <input type="text" id="booth-input" placeholder="e.g. ABC1234567 or 110001" />
+            <label for="booth-input">EPIC Number OR PIN Code</label>
+            <input type="text" id="booth-input" placeholder="e.g. ABC1234567 or 110001" aria-required="true" />
           </div>
           <button class="btn-primary" onclick="findBooth()" id="btn-find-booth">Find Booth <i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-        <div id="booth-result" class="result-container hidden"></div>
+        <div id="booth-result" class="result-container hidden" aria-live="polite"></div>
       </section>
 
       <!-- SCREEN: CHECK STATUS -->
@@ -137,12 +137,12 @@
         </div>
         <div class="card">
           <div class="input-group">
-            <label>EPIC Number</label>
-            <input type="text" id="status-epic" placeholder="e.g. ABC1234567" />
+            <label for="status-epic">EPIC Number</label>
+            <input type="text" id="status-epic" placeholder="e.g. ABC1234567" aria-required="true" />
           </div>
           <button class="btn-primary" onclick="checkStatus()" id="btn-check-status">Check Registration <i class="fa-solid fa-check"></i></button>
         </div>
-        <div id="status-result" class="result-container hidden"></div>
+        <div id="status-result" class="result-container hidden" aria-live="polite"></div>
       </section>
 
       <!-- SCREEN: SMART CHECKLIST -->
@@ -153,12 +153,12 @@
         </div>
         <div class="card">
           <div class="input-group">
-            <label>Age</label>
-            <input type="number" id="checklist-age" placeholder="e.g. 22" min="1" max="120" />
+            <label for="checklist-age">Age</label>
+            <input type="number" id="checklist-age" placeholder="e.g. 22" min="1" max="120" aria-required="true" />
           </div>
           <div class="input-group mt-15">
-            <label>Voting Status</label>
-            <select id="checklist-situation">
+            <label for="checklist-situation">Voting Status</label>
+            <select id="checklist-situation" aria-required="true">
               <option value="" disabled selected>Select status</option>
               <option value="first-time">First-time Voter (Not Registered)</option>
               <option value="registered">Already Registered</option>
@@ -167,7 +167,7 @@
           </div>
           <button class="btn-primary mt-15" onclick="generateChecklist()" id="btn-checklist">Generate Checklist <i class="fa-solid fa-list"></i></button>
         </div>
-        <div id="checklist-result" class="result-container hidden"></div>
+        <div id="checklist-result" class="result-container hidden" aria-live="polite"></div>
       </section>
 
       <!-- SCREEN: REMINDERS -->
@@ -178,8 +178,8 @@
         </div>
         <div class="card">
           <div class="input-group">
-            <label>Select State / Union Territory</label>
-            <select id="reminder-state">
+            <label for="reminder-state">Select State / Union Territory</label>
+            <select id="reminder-state" aria-required="true">
               <option value="" disabled selected>Select your state</option>
               <option value="Delhi">Delhi</option>
               <option value="Maharashtra">Maharashtra</option>
@@ -190,8 +190,8 @@
           </div>
           
           <div class="input-group mt-15">
-            <label>Phone Number (for SMS Alerts)</label>
-            <input type="tel" id="reminder-phone" placeholder="10-digit mobile number" maxlength="10" />
+            <label for="reminder-phone">Phone Number (for SMS Alerts)</label>
+            <input type="tel" id="reminder-phone" placeholder="10-digit mobile number" maxlength="10" aria-required="true" />
           </div>
 
           <div class="checkbox-group mt-15">
@@ -209,7 +209,7 @@
           
           <button class="btn-primary mt-15" onclick="setReminders()" id="btn-reminders">Save Preferences <i class="fa-solid fa-floppy-disk"></i></button>
         </div>
-        <div id="reminder-result" class="result-container hidden"></div>
+        <div id="reminder-result" class="result-container hidden" aria-live="polite"></div>
       </section>
 
       <!-- SCREEN: NRI MODE -->
