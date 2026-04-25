@@ -2,272 +2,262 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VoteSathi AI — Know Your Voting Status</title>
-  <meta name="description" content="VoteSathi AI — Check your voting eligibility and know exactly what to do next. Simple, clear, and fast." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>VoteSathi AI — Your Personal Voting Assistant</title>
+  <meta name="description" content="VoteSathi AI — Step-by-step guidance for voting in India. Find your booth, check eligibility, and get your document checklist." />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Progress Bar -->
-  <div class="progress-bar" id="progress-bar" aria-hidden="true">
-    <div class="progress-fill" id="progress-fill"></div>
+  <!-- App Container -->
+  <div class="app-container">
+    
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="logo-area">
+        <i class="fa-solid fa-check-to-slot logo-icon"></i>
+        <h1>VoteSathi AI</h1>
+      </div>
+      <button class="profile-btn" aria-label="Profile"><i class="fa-solid fa-circle-user"></i></button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content-area" id="main-content">
+      
+      <!-- SCREEN: HOME / DASHBOARD -->
+      <section id="screen-home" class="screen active">
+        <div class="welcome-banner">
+          <h2>Ready to Vote? 🇮🇳</h2>
+          <p>Your personal assistant for the upcoming elections.</p>
+        </div>
+
+        <h3 class="section-title">Quick Actions</h3>
+        <div class="action-grid">
+          <div class="action-card" onclick="navTo('screen-status')">
+            <div class="icon-circle bg-blue"><i class="fa-solid fa-id-card"></i></div>
+            <span>Check Status</span>
+          </div>
+          <div class="action-card" onclick="navTo('screen-booth')">
+            <div class="icon-circle bg-orange"><i class="fa-solid fa-location-dot"></i></div>
+            <span>Find Booth</span>
+          </div>
+          <div class="action-card" onclick="navTo('screen-checklist')">
+            <div class="icon-circle bg-green"><i class="fa-solid fa-list-check"></i></div>
+            <span>Documents</span>
+          </div>
+          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')">
+            <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus"></i></div>
+            <span>Register Now</span>
+          </div>
+          <div class="action-card" onclick="navTo('screen-nri')">
+            <div class="icon-circle bg-teal"><i class="fa-solid fa-plane-departure"></i></div>
+            <span>NRI Voters</span>
+          </div>
+          <div class="action-card" onclick="window.location.href='tel:1950'">
+            <div class="icon-circle bg-red"><i class="fa-solid fa-phone"></i></div>
+            <span>Helpline 1950</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">Live Election Timeline</h3>
+        <div class="timeline-card">
+          <div class="timeline-item completed">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Voter Registration</h4>
+              <p>Closes 10 days before polling</p>
+            </div>
+          </div>
+          <div class="timeline-item active">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Candidate Nominations</h4>
+              <p>Currently in progress</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Voting Day</h4>
+              <p>Get ready with your Epic ID!</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Result Declaration</h4>
+              <p>To be announced</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: POLLING BOOTH FINDER -->
+      <section id="screen-booth" class="screen">
+        <div class="screen-header">
+          <h2>📍 Find Polling Booth</h2>
+          <p>Enter your details to locate where you need to vote.</p>
+        </div>
+        <div class="card">
+          <div class="input-group">
+            <label>EPIC Number or PIN Code</label>
+            <input type="text" id="booth-input" placeholder="e.g. ABC1234567 or 110001" />
+          </div>
+          <button class="btn-primary" onclick="findBooth()">Find Booth <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div id="booth-result" class="result-container hidden">
+          <div class="booth-card">
+            <h3>Govt. Primary School, Sector 4</h3>
+            <p><i class="fa-solid fa-map-pin"></i> Room No. 2, Sector 4, New Delhi - 110001</p>
+            <p><i class="fa-solid fa-person-walking"></i> ~1.2 km away</p>
+            <button class="btn-secondary mt-10" onclick="window.open('https://maps.google.com/?q=New+Delhi', '_blank')">
+              <i class="fa-solid fa-location-arrow"></i> Navigate
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: CHECK STATUS -->
+      <section id="screen-status" class="screen">
+        <div class="screen-header">
+          <h2>🔍 Voter Status</h2>
+          <p>Check if your name is on the electoral roll.</p>
+        </div>
+        <div class="card">
+          <div class="input-group">
+            <label>EPIC Number</label>
+            <input type="text" id="status-epic" placeholder="e.g. ABC1234567" />
+          </div>
+          <div class="divider"><span>OR</span></div>
+          <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="status-name" placeholder="John Doe" />
+          </div>
+          <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="date" id="status-dob" />
+          </div>
+          <button class="btn-primary" onclick="checkStatus()">Check Status <i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div id="status-result" class="result-container hidden">
+          <!-- Dynamic Content -->
+        </div>
+      </section>
+
+      <!-- SCREEN: SMART CHECKLIST -->
+      <section id="screen-checklist" class="screen">
+        <div class="screen-header">
+          <h2>🧾 Document Checklist</h2>
+          <p>Get a personalized list of documents needed.</p>
+        </div>
+        <div class="card" id="checklist-step-1">
+          <div class="input-group">
+            <label>How old are you?</label>
+            <input type="number" id="checklist-age" placeholder="e.g. 22" />
+          </div>
+          <div class="input-group mt-15">
+            <label>What is your current situation?</label>
+            <select id="checklist-situation">
+              <option value="" disabled selected>Select an option</option>
+              <option value="first-time">First-time Voter (Not Registered)</option>
+              <option value="registered">Already Registered</option>
+              <option value="moved">Recently Moved Cities</option>
+            </select>
+          </div>
+          <button class="btn-primary mt-15" onclick="generateChecklist()">Generate List <i class="fa-solid fa-wand-magic-sparkles"></i></button>
+        </div>
+        <div id="checklist-result" class="result-container hidden">
+          <!-- Dynamic Content -->
+        </div>
+      </section>
+
+      <!-- SCREEN: NRI MODE -->
+      <section id="screen-nri" class="screen">
+        <div class="screen-header">
+          <h2>✈️ NRI Voting Guide</h2>
+          <p>Everything you need to know to vote from abroad.</p>
+        </div>
+        <div class="nri-cards">
+          <div class="info-accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-head">
+              <h3><i class="fa-solid fa-passport"></i> Eligibility</h3>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="accordion-body">
+              Indian citizens living abroad who have NOT acquired foreign citizenship can register as overseas voters.
+            </div>
+          </div>
+          <div class="info-accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-head">
+              <h3><i class="fa-solid fa-pen-to-square"></i> Registration</h3>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="accordion-body">
+              Fill Form 6A online on the ECI portal. You'll need your valid Indian Passport and visa details.
+            </div>
+          </div>
+          <div class="info-accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-head">
+              <h3><i class="fa-solid fa-building-columns"></i> How to Vote</h3>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="accordion-body">
+              Currently, NRIs must travel to India to vote in person at their registered constituency. E-postal ballots are being considered but not fully implemented.
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary mt-15" onclick="window.open('https://voters.eci.gov.in', '_blank')">Apply via Form 6A <i class="fa-solid fa-external-link"></i></button>
+      </section>
+
+      <!-- SCREEN: AI CHAT ASSISTANT -->
+      <section id="screen-chat" class="screen chat-screen">
+        <div class="chat-header">
+          <div class="chat-avatar"><i class="fa-solid fa-robot"></i></div>
+          <div class="chat-title">
+            <h3>AI Voting Assistant</h3>
+            <p>Online &bull; Ask me anything!</p>
+          </div>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <div class="message ai-message">
+            Hi! 👋 I'm your VoteSathi AI. Need help finding your booth, checking what documents you need, or registering to vote? Just ask!
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleChatKeyPress(event)" />
+          <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="navTo('screen-home', this)">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" onclick="navTo('screen-checklist', this)">
+        <i class="fa-solid fa-list-check"></i>
+        <span>Docs</span>
+      </button>
+      <button class="nav-item float-btn" onclick="navTo('screen-chat', this)">
+        <div class="ai-fab"><i class="fa-solid fa-robot"></i></div>
+      </button>
+      <button class="nav-item" onclick="navTo('screen-booth', this)">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>Booth</span>
+      </button>
+      <button class="nav-item" onclick="navTo('screen-status', this)">
+        <i class="fa-solid fa-id-card"></i>
+        <span>Status</span>
+      </button>
+    </nav>
+
   </div>
-
-  <!-- Step Labels -->
-  <div class="step-label" id="step-label" aria-live="polite"></div>
-
-  <!-- ── SCREEN 1: WELCOME ─────────────────────── -->
-  <div class="screen active" id="screen-1">
-    <div class="card welcome-card">
-      <div class="logo-block">
-        <span class="logo-icon">🗳️</span>
-        <h1 class="logo-text">VoteSathi AI</h1>
-      </div>
-      <p class="tagline">Know Your Voting Status.<br>Know What to Do Next.</p>
-      <p class="welcome-desc">
-        Answer a few simple questions and find out your voting eligibility — and your next steps — in under 2 minutes.
-      </p>
-      <div class="badges-row">
-        <span class="badge">🇮🇳 India Citizens</span>
-        <span class="badge">✈️ NRI / Overseas</span>
-        <span class="badge">📦 Recently Moved</span>
-      </div>
-      <button class="btn-primary" id="btn-start" onclick="goToStep(2)">Start →</button>
-      <p class="disclaimer">No data is collected. This tool is for guidance only.</p>
-    </div>
-  </div>
-
-  <!-- ── SCREEN 2: INPUT FORM ──────────────────── -->
-  <div class="screen" id="screen-2">
-    <div class="card">
-      <h2 class="screen-title">Tell Us About Yourself</h2>
-      <p class="screen-subtitle">Your answers help us show you the right information.</p>
-
-      <form id="eligibility-form" novalidate>
-
-        <!-- Age -->
-        <div class="field-group">
-          <label class="field-label" for="input-age">How old are you?</label>
-          <input
-            type="number"
-            id="input-age"
-            class="field-input"
-            placeholder="Enter your age (e.g. 22)"
-            min="1" max="110"
-            aria-required="true"
-          />
-          <span class="field-error" id="err-age"></span>
-        </div>
-
-        <!-- Location -->
-        <div class="field-group">
-          <label class="field-label">Where are you currently located?</label>
-          <div class="btn-group" role="radiogroup" aria-label="Current location" id="grp-location">
-            <button type="button" class="btn-choice" data-group="location" data-value="india">🇮🇳 Inside India</button>
-            <button type="button" class="btn-choice" data-group="location" data-value="outside">✈️ Outside India (NRI)</button>
-          </div>
-          <span class="field-error" id="err-location"></span>
-        </div>
-
-        <!-- Moved -->
-        <div class="field-group">
-          <label class="field-label">Have you moved to a new city or district recently?</label>
-          <div class="btn-group" role="radiogroup" aria-label="Moved recently" id="grp-moved">
-            <button type="button" class="btn-choice" data-group="moved" data-value="yes">Yes</button>
-            <button type="button" class="btn-choice" data-group="moved" data-value="no">No</button>
-          </div>
-          <span class="field-error" id="err-moved"></span>
-        </div>
-
-        <!-- Registered -->
-        <div class="field-group">
-          <label class="field-label">Are you registered as a voter?</label>
-          <div class="btn-group" role="radiogroup" aria-label="Registered" id="grp-registered">
-            <button type="button" class="btn-choice" data-group="registered" data-value="yes">Yes</button>
-            <button type="button" class="btn-choice" data-group="registered" data-value="no">No</button>
-            <button type="button" class="btn-choice" data-group="registered" data-value="unsure">Not Sure</button>
-          </div>
-          <span class="field-error" id="err-registered"></span>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn-secondary" onclick="goToStep(1)">← Back</button>
-          <button type="submit" class="btn-primary">Check My Status →</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ── SCREEN 3: RESULT ──────────────────────── -->
-  <div class="screen" id="screen-3">
-    <div class="card">
-      <!-- Status block injected by JS -->
-      <div id="result-block"></div>
-
-      <!-- Next steps injected by JS -->
-      <div id="steps-block"></div>
-
-      <div class="form-actions" style="margin-top:28px;">
-        <button type="button" class="btn-secondary" onclick="goToStep(2)">← Change Answers</button>
-        <button type="button" class="btn-primary" onclick="goToStep(4)">Learn the Process →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── SCREEN 4: ELECTION PROCESS ───────────── -->
-  <div class="screen" id="screen-4">
-    <div class="card">
-      <h2 class="screen-title">How Elections Work in India</h2>
-      <p class="screen-subtitle">A simple, step-by-step overview of the election process.</p>
-
-      <ol class="process-list">
-        <li class="process-item">
-          <div class="process-num">1</div>
-          <div class="process-content">
-            <h3>Voter Registration</h3>
-            <p>Citizens aged 18+ apply online at <a href="https://voters.eci.gov.in" target="_blank" rel="noopener">voters.eci.gov.in</a> using Form 6. Proof of age and address are required. A Booth Level Officer (BLO) verifies the details.</p>
-          </div>
-        </li>
-        <li class="process-item">
-          <div class="process-num">2</div>
-          <div class="process-content">
-            <h3>Verification & Voter ID</h3>
-            <p>After verification, your name is added to the electoral roll and you receive an EPIC (Voter ID) card. This can also be downloaded digitally.</p>
-          </div>
-        </li>
-        <li class="process-item">
-          <div class="process-num">3</div>
-          <div class="process-content">
-            <h3>Election Announcement</h3>
-            <p>The Election Commission announces election dates. The Model Code of Conduct comes into effect. Voter slips are distributed with booth details.</p>
-          </div>
-        </li>
-        <li class="process-item">
-          <div class="process-num">4</div>
-          <div class="process-content">
-            <h3>Voting Day</h3>
-            <p>Voters go to their designated polling booth with a valid ID. They press the EVM button for their candidate. A VVPAT slip confirms the vote for 7 seconds.</p>
-          </div>
-        </li>
-        <li class="process-item">
-          <div class="process-num">5</div>
-          <div class="process-content">
-            <h3>Counting & Result</h3>
-            <p>Votes are counted at designated centers under strict security. Results are declared by the Returning Officer. The party/candidate with the most votes wins.</p>
-          </div>
-        </li>
-      </ol>
-
-      <div class="info-box">
-        <strong>Voter Helpline:</strong> Call <strong>1950</strong> (toll-free) for any election-related help.
-      </div>
-
-      <div class="form-actions" style="margin-top:28px;">
-        <button type="button" class="btn-secondary" onclick="goToStep(3)">← My Result</button>
-        <button type="button" class="btn-primary" onclick="goToStep(5)">FAQs →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── SCREEN 5: FAQ ─────────────────────────── -->
-  <div class="screen" id="screen-5">
-    <div class="card">
-      <h2 class="screen-title">Frequently Asked Questions</h2>
-      <p class="screen-subtitle">Common questions about voter registration and the election process.</p>
-
-      <div class="faq-list">
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">
-            How do I register to vote?
-            <span class="faq-chevron">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Visit <a href="https://voters.eci.gov.in" target="_blank" rel="noopener">voters.eci.gov.in</a> and fill <strong>Form 6</strong> online. You will need proof of age (Aadhaar / birth certificate / 10th marksheet) and proof of address (electricity bill / rent agreement). A Booth Level Officer will verify your application. Your name will appear in the voter list within 30–45 days.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">
-            What documents are required?
-            <span class="faq-chevron">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>For registration, you need:</p>
-            <ul>
-              <li>Proof of age — Aadhaar, birth certificate, 10th marksheet, or passport</li>
-              <li>Proof of address — electricity bill, water bill, bank passbook, or rent agreement</li>
-              <li>Passport-size photograph</li>
-            </ul>
-            <p>On voting day, you can use any one of 12 approved IDs: Voter ID, Aadhaar, Passport, Driving License, PAN Card, and more.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">
-            Can NRIs vote in India?
-            <span class="faq-chevron">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Yes. Indian citizens living abroad who have <strong>not</strong> acquired foreign citizenship can register as overseas voters under Section 20A of the Representation of the People Act, 1950.</p>
-            <ul>
-              <li>Fill <strong>Form 6A</strong> at voters.eci.gov.in</li>
-              <li>Submit a valid Indian Passport</li>
-              <li>You must travel to India to vote in person at your registered constituency polling booth</li>
-              <li>Proxy or postal voting is not available for most NRI voters</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">
-            What if I moved to another city?
-            <span class="faq-chevron">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>If you have moved to a different constituency, fill <strong>Form 6</strong> at your new address. If you moved within the same constituency, fill <strong>Form 8A</strong>.</p>
-            <ul>
-              <li>Submit proof of new address (Aadhaar / utility bill / rent agreement)</li>
-              <li>Your name will be transferred to the new voter list within 30–45 days</li>
-              <li>You can only vote in the constituency where you are currently registered</li>
-            </ul>
-            <p>Check your constituency at <a href="https://electoralsearch.eci.gov.in" target="_blank" rel="noopener">electoralsearch.eci.gov.in</a></p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">
-            How do I check if I am already registered?
-            <span class="faq-chevron">▼</span>
-          </button>
-          <div class="faq-answer">
-            <p>Visit <a href="https://electoralsearch.eci.gov.in" target="_blank" rel="noopener">electoralsearch.eci.gov.in</a> and search by your name or EPIC number. You can also call the Voter Helpline at <strong>1950</strong> (toll-free).</p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="info-box" style="margin-top:28px;">
-        <strong>Need help?</strong> Call the free Voter Helpline: <strong>1950</strong> &nbsp;|&nbsp;
-        Visit: <a href="https://voters.eci.gov.in" target="_blank" rel="noopener">voters.eci.gov.in</a>
-      </div>
-
-      <div class="form-actions" style="margin-top:24px;">
-        <button type="button" class="btn-secondary" onclick="goToStep(4)">← Election Process</button>
-        <button type="button" class="btn-primary" onclick="goToStep(1)">Start Over</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <p>VoteSathi AI &nbsp;·&nbsp; Information based on ECI guidelines &nbsp;·&nbsp; Voter Helpline: <strong>1950</strong> &nbsp;·&nbsp;
-      <a href="https://eci.gov.in" target="_blank" rel="noopener">eci.gov.in</a>
-    </p>
-  </footer>
 
   <script src="app.js"></script>
 </body>

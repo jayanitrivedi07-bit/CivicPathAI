@@ -1,224 +1,208 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize the app
-  setupForm();
-});
-
-// Navigation state
-const TOTAL_STEPS = 5;
-
-const stepNames = {
-  1: "",
-  2: "Step 1 of 2: Your Details",
-  3: "Step 2 of 2: Your Status & Next Steps",
-  4: "Election Process",
-  5: "FAQs"
-};
-
-function goToStep(step) {
+// Navigation Logic
+function navTo(screenId, navElement = null) {
   // Hide all screens
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
-  
+
   // Show target screen
-  document.getElementById(`screen-${step}`).classList.add('active');
-  
-  // Update UI (Progress bar & Labels)
-  const progressBar = document.getElementById('progress-bar');
-  const progressFill = document.getElementById('progress-fill');
-  const stepLabel = document.getElementById('step-label');
-  
-  if (step === 1) {
-    progressBar.style.display = 'none';
-    stepLabel.style.display = 'none';
-  } else {
-    progressBar.style.display = 'block';
-    stepLabel.style.display = 'block';
-    
-    // Calculate progress (just visual representation)
-    const pct = step === 2 ? 33 : (step === 3 ? 66 : 100);
-    progressFill.style.width = `${pct}%`;
-    stepLabel.textContent = stepNames[step];
-  }
-  
-  window.scrollTo(0, 0);
-}
+  document.getElementById(screenId).classList.add('active');
 
-// Form Setup & Validation
-function setupForm() {
-  const form = document.getElementById('eligibility-form');
-  if (!form) return;
-
-  // Radio button logic
-  document.querySelectorAll('.btn-choice').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const groupName = this.getAttribute('data-group');
-      
-      // Remove selected class from all buttons in this group
-      document.querySelectorAll(`.btn-choice[data-group="${groupName}"]`).forEach(b => {
-        b.classList.remove('selected');
-      });
-      
-      // Add selected class to clicked button
-      this.classList.add('selected');
-      
-      // Clear error for this group
-      document.getElementById(`err-${groupName}`).textContent = '';
+  // Update bottom nav state
+  if (navElement) {
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.remove('active');
     });
-  });
-
-  // Clear age error on input
-  document.getElementById('input-age').addEventListener('input', function() {
-    document.getElementById('err-age').textContent = '';
-  });
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (validateForm()) {
-      processResults();
-      goToStep(3);
+    navElement.classList.add('active');
+  } else {
+    // If navigated from somewhere else, map the active state correctly
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    
+    // Simple mapping based on screen ID
+    const mapping = {
+      'screen-home': 0,
+      'screen-checklist': 1,
+      'screen-chat': 2,
+      'screen-booth': 3,
+      'screen-status': 4
+    };
+    
+    const index = mapping[screenId];
+    if (index !== undefined) {
+      document.querySelectorAll('.nav-item')[index].classList.add('active');
     }
-  });
+  }
+
+  // Reset scroll
+  document.getElementById('main-content').scrollTop = 0;
 }
 
-function validateForm() {
-  let isValid = true;
-  
-  // Age
-  const ageStr = document.getElementById('input-age').value;
-  const age = parseInt(ageStr, 10);
-  if (!ageStr || isNaN(age) || age < 1 || age > 110) {
-    document.getElementById('err-age').textContent = 'Please enter a valid age.';
-    isValid = false;
-  }
-  
-  // Location
-  const locBtn = document.querySelector('.btn-choice[data-group="location"].selected');
-  if (!locBtn) {
-    document.getElementById('err-location').textContent = 'Please select your location.';
-    isValid = false;
-  }
-  
-  // Moved
-  const movedBtn = document.querySelector('.btn-choice[data-group="moved"].selected');
-  if (!movedBtn) {
-    document.getElementById('err-moved').textContent = 'Please select an option.';
-    isValid = false;
-  }
-  
-  // Registered
-  const regBtn = document.querySelector('.btn-choice[data-group="registered"].selected');
-  if (!regBtn) {
-    document.getElementById('err-registered').textContent = 'Please select an option.';
-    isValid = false;
-  }
-  
-  return isValid;
+// Accordion Toggle
+function toggleAccordion(element) {
+  element.classList.toggle('open');
 }
 
-function processResults() {
-  const age = parseInt(document.getElementById('input-age').value, 10);
-  const location = document.querySelector('.btn-choice[data-group="location"].selected').getAttribute('data-value');
-  const moved = document.querySelector('.btn-choice[data-group="moved"].selected').getAttribute('data-value');
-  const registered = document.querySelector('.btn-choice[data-group="registered"].selected').getAttribute('data-value');
+// Features
+function findBooth() {
+  const input = document.getElementById('booth-input').value.trim();
+  if (!input) {
+    alert("Please enter your EPIC number or PIN code.");
+    return;
+  }
+
+  // Simulate network request
+  const btn = document.querySelector('#screen-booth .btn-primary');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Searching...';
   
-  const resultBlock = document.getElementById('result-block');
-  const stepsBlock = document.getElementById('steps-block');
+  setTimeout(() => {
+    document.getElementById('booth-result').classList.remove('hidden');
+    btn.innerHTML = originalText;
+  }, 800);
+}
+
+function checkStatus() {
+  const epic = document.getElementById('status-epic').value.trim();
+  const name = document.getElementById('status-name').value.trim();
   
-  let statusHTML = '';
-  let stepsHTML = '';
+  if (!epic && !name) {
+    alert("Please enter either EPIC number or your Name & DOB.");
+    return;
+  }
+
+  // Simulate network request
+  const btn = document.querySelector('#screen-status .btn-primary');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
   
-  // Logic Tree
+  setTimeout(() => {
+    const resultDiv = document.getElementById('status-result');
+    resultDiv.classList.remove('hidden');
+    
+    // Simulate found/not found based on input length just for demo
+    if ((epic && epic.length > 5) || (name && name.length > 4)) {
+      resultDiv.innerHTML = `
+        <div class="status-alert success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>Voter Found!</h3>
+          <p>You are successfully registered on the electoral roll.</p>
+          <button class="btn-primary mt-15" onclick="navTo('screen-booth')">Find Polling Booth</button>
+        </div>
+      `;
+    } else {
+      resultDiv.innerHTML = `
+        <div class="status-alert error">
+          <i class="fa-solid fa-circle-xmark"></i>
+          <h3>Not Found</h3>
+          <p>We couldn't find your details. You may need to register.</p>
+          <button class="btn-primary mt-15" onclick="window.open('https://voters.eci.gov.in', '_blank')">Register Now <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      `;
+    }
+    
+    btn.innerHTML = originalText;
+  }, 1000);
+}
+
+function generateChecklist() {
+  const age = document.getElementById('checklist-age').value;
+  const situation = document.getElementById('checklist-situation').value;
+  
+  if (!age || !situation) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
   if (age < 18) {
-    statusHTML = `
-      <div class="status-box status-ineligible">
-        <h3>Not Eligible to Vote Yet</h3>
-        <p>You must be 18 years or older on the qualifying date (usually January 1st of the election year) to vote in India.</p>
+    document.getElementById('checklist-result').innerHTML = `
+      <div class="status-alert error mt-15">
+        <i class="fa-solid fa-hand"></i>
+        <h3>Not Eligible</h3>
+        <p>You must be 18 years or older to vote in India.</p>
       </div>
     `;
-    stepsHTML = `
-      <h4 class="next-steps-title">What to do next:</h4>
-      <ul class="steps-list">
-        <li>Wait until you turn 18 to apply for your Voter ID.</li>
-        <li>Once you are 18, visit voters.eci.gov.in and fill Form 6.</li>
-        <li>Learn about the election process so you are ready when the time comes.</li>
-      </ul>
+    document.getElementById('checklist-result').classList.remove('hidden');
+    return;
+  }
+
+  let html = `<div class="card mt-15" style="border: 2px solid var(--primary);">
+    <h3 style="margin-bottom: 15px; color: var(--primary);"><i class="fa-solid fa-clipboard-check"></i> Your Action Plan</h3>
+    <ul style="list-style: none; padding: 0;">`;
+
+  if (situation === 'first-time') {
+    html += `
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Action:</strong> Fill Form 6 online at voters.eci.gov.in</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Age Proof:</strong> Aadhaar Card, PAN Card, or Birth Certificate</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Address Proof:</strong> Passport, Bank Passbook, or utility bill</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Photo:</strong> Recent passport size photograph</div></li>
     `;
-  } 
-  else if (location === 'outside') {
-    statusHTML = `
-      <div class="status-box status-nri">
-        <h3>Eligible as Overseas (NRI) Voter</h3>
-        <p>Indian citizens living abroad who have not acquired foreign citizenship can vote in Indian elections.</p>
-      </div>
+  } else if (situation === 'moved') {
+    html += `
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Action:</strong> Fill Form 8 online at voters.eci.gov.in</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Required:</strong> Existing EPIC (Voter ID) number</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>New Address Proof:</strong> Rent agreement, utility bill, or Aadhaar with new address</div></li>
     `;
-    stepsHTML = `
-      <h4 class="next-steps-title">What to do next:</h4>
-      <ul class="steps-list">
-        <li>Register as an overseas voter by filling <strong>Form 6A</strong> on voters.eci.gov.in.</li>
-        <li>Submit your valid Indian Passport as proof.</li>
-        <li>Important: You must travel back to India to vote in person at your registered constituency. Proxy/postal voting is not available.</li>
-      </ul>
+  } else {
+    html += `
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Action 1:</strong> Verify your name on the electoral roll.</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Action 2:</strong> Check your polling booth location a few days before election.</div></li>
+      <li style="margin-bottom: 12px; display: flex; gap: 10px;"><i class="fa-solid fa-check" style="color: var(--green); margin-top: 3px;"></i> <div><strong>Voting Day ID:</strong> Carry your Voter ID (EPIC) or Aadhaar Card.</div></li>
     `;
   }
-  else if (moved === 'yes') {
-    statusHTML = `
-      <div class="status-box status-warning">
-        <h3>Action Required: Update Location</h3>
-        <p>You are eligible, but since you moved recently, you must update your voter registration to your new address to vote in the correct constituency.</p>
-      </div>
-    `;
-    stepsHTML = `
-      <h4 class="next-steps-title">What to do next:</h4>
-      <ul class="steps-list">
-        <li>If you moved to a <strong>new constituency</strong>, fill <strong>Form 6</strong> at voters.eci.gov.in.</li>
-        <li>If you moved <strong>within the same constituency</strong>, fill <strong>Form 8A</strong>.</li>
-        <li>Submit self-attested proof of your new address (e.g., Aadhaar, rent agreement, utility bill).</li>
-        <li>Do not vote in your old constituency once you have permanently moved.</li>
-      </ul>
-    `;
-  }
-  else if (registered === 'no' || registered === 'unsure') {
-    statusHTML = `
-      <div class="status-box status-warning">
-        <h3>Action Required: Verify Registration</h3>
-        <p>You are eligible by age, but you must be registered in the electoral roll to cast your vote.</p>
-      </div>
-    `;
-    stepsHTML = `
-      <h4 class="next-steps-title">What to do next:</h4>
-      <ul class="steps-list">
-        ${registered === 'unsure' ? '<li>Check if you are already registered at <strong>electoralsearch.eci.gov.in</strong>.</li>' : ''}
-        <li>If not registered, visit <strong>voters.eci.gov.in</strong> and fill <strong>Form 6</strong>.</li>
-        <li>Submit proof of age (e.g., birth certificate) and proof of address (e.g., Aadhaar).</li>
-        <li>A Booth Level Officer (BLO) will verify your application before your name is added to the list.</li>
-      </ul>
-    `;
-  }
-  else {
-    // Eligible, in India, hasn't moved, is registered
-    statusHTML = `
-      <div class="status-box status-eligible">
-        <h3>Fully Eligible & Ready</h3>
-        <p>You are eligible to vote and your registration is up to date.</p>
-      </div>
-    `;
-    stepsHTML = `
-      <h4 class="next-steps-title">What to do next:</h4>
-      <ul class="steps-list">
-        <li>Double-check your name in the voter list at <strong>electoralsearch.eci.gov.in</strong> before election day.</li>
-        <li>Find your exact polling booth location using the ECI website or Voter Helpline App.</li>
-        <li>On election day, go to your booth carrying your Voter ID or any approved alternate ID (Aadhaar, Passport, PAN, etc.).</li>
-      </ul>
-    `;
-  }
+
+  html += `</ul></div>`;
   
-  resultBlock.innerHTML = statusHTML;
-  stepsBlock.innerHTML = stepsHTML;
+  if (situation === 'first-time' || situation === 'moved') {
+    html += `<button class="btn-primary mt-15" onclick="window.open('https://voters.eci.gov.in', '_blank')">Go to Voter Portal <i class="fa-solid fa-arrow-up-right-from-square"></i></button>`;
+  }
+
+  document.getElementById('checklist-result').innerHTML = html;
+  document.getElementById('checklist-result').classList.remove('hidden');
 }
 
-// FAQ Accordion Toggle
-function toggleFAQ(button) {
-  const isExpanded = button.getAttribute('aria-expanded') === 'true';
-  button.setAttribute('aria-expanded', !isExpanded);
+// Chat AI Logic
+function handleChatKeyPress(event) {
+  if (event.key === 'Enter') {
+    sendMessage();
+  }
+}
+
+function sendMessage() {
+  const inputEl = document.getElementById('chat-input');
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  const chatContainer = document.getElementById('chat-messages');
+
+  // Add user message
+  chatContainer.innerHTML += `<div class="message user-message">${text}</div>`;
+  inputEl.value = '';
+  
+  // Scroll to bottom
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // AI Response logic
+  setTimeout(() => {
+    let response = "I'm not sure about that. Try checking the 'Documents' tab or call the Voter Helpline at 1950.";
+    const lowerText = text.toLowerCase();
+
+    if (lowerText.includes('register') || lowerText.includes('apply')) {
+      response = "To register, you need to fill Form 6 on voters.eci.gov.in. Would you like me to take you to the document checklist first?";
+    } else if (lowerText.includes('booth') || lowerText.includes('where to vote')) {
+      response = "You can find your polling booth using your EPIC number or PIN code. Just go to the 'Booth' tab at the bottom!";
+    } else if (lowerText.includes('nri') || lowerText.includes('abroad')) {
+      response = "NRIs need to fill Form 6A to register. Check out the 'NRI Voters' section on the Home screen for complete details.";
+    } else if (lowerText.includes('lost') || lowerText.includes('epic') || lowerText.includes('id')) {
+      response = "Lost your Voter ID? You can download an e-EPIC from the portal, or you can vote using your Aadhaar or Passport if your name is on the list!";
+    } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
+      response = "Hello! How can I help you get ready for voting today?";
+    } else if (lowerText.includes('form 8') || lowerText.includes('move') || lowerText.includes('shift')) {
+      response = "If you've shifted to a new place, you need to fill Form 8 to update your address. You'll need proof of your new address.";
+    }
+
+    chatContainer.innerHTML += `<div class="message ai-message">${response}</div>`;
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }, 600);
 }
