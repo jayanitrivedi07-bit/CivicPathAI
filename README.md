@@ -53,3 +53,24 @@ The system follows a strict pipeline for all its features:
    npm start
    ```
 4. Access the web app at `http://localhost:3005`.
+
+---
+
+## Deploying to Google Cloud Run
+
+This project includes a `Dockerfile` optimized for deploying as a single container on Google Cloud Run.
+
+### Deployment Steps
+1. **Authenticate with Google Cloud:**
+   ```bash
+   gcloud auth login
+   gcloud config set project YOUR_PROJECT_ID
+   ```
+2. **Submit the build and deploy to Cloud Run:**
+   ```bash
+   gcloud run deploy civicpathai \
+     --source . \
+     --region us-central1 \
+     --allow-unauthenticated
+   ```
+3. Cloud Run will automatically build the container using the provided `Dockerfile` and provide you with a live, scalable HTTPS URL!
