@@ -2,8 +2,9 @@
   "name": "civicpathai",
   "version": "1.0.0",
   "description": "VoteSathi AI is a simple, straightforward application designed to guide Indian citizens through the voting process.  Whether you're a first-time voter, an NRI, or have recently moved, VoteSathi AI asks a few simple questions to determine your eligibility and tells you exactly what to do next to cast your vote.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

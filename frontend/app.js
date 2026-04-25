@@ -82,7 +82,7 @@ async function findBooth() {
     
     if (data.found) {
       const b = data.booth;
-      const navLink = `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
+      const navLink = b.google_maps_url || `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
       resultDiv.innerHTML = `
         <div class="booth-card">
           <h3>${b.name}</h3>

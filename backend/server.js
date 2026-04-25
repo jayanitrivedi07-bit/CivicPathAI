@@ -3,11 +3,11 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // --- MOCK DATABASE ---
 const db = {
@@ -41,10 +41,10 @@ app.get('/api/booths', (req, res) => {
   const query = req.query.query; // EPIC or PIN
   if (!query) return res.status(400).json({ error: 'Query parameter required' });
 
-  // Mock Geocode/Lookup logic
+  // Mock Geocode/Lookup logic (Simulating Google Maps API & PostGIS GeoJSON lookup)
   let foundBooth = null;
   if (query.length === 6 && !isNaN(query)) {
-    // Treat as PIN code (Mocking location lookup)
+    // Treat as PIN code: Simulate Google Maps Geocoding to get Lat/Lng, then PostGIS spatial query
     foundBooth = db.booths[0]; // Just return the first one as a mock
   } else {
     // Treat as EPIC number
@@ -60,7 +60,8 @@ app.get('/api/booths', (req, res) => {
       booth: {
         name: foundBooth.name,
         address: foundBooth.address,
-        distance: '1.2 km away' // Mocked Haversine calculation
+        distance: '1.2 km away', // Mocked Haversine calculation
+        google_maps_url: `https://www.google.com/maps/search/?api=1&query=${foundBooth.lat},${foundBooth.lng}`
       }
     });
   } else {
@@ -73,7 +74,11 @@ app.get('/api/voter-status', (req, res) => {
   const epic = req.query.epic;
   if (!epic) return res.status(400).json({ error: 'EPIC parameter required' });
 
-  // Cache check would go here in a real app
+  // SIMULATED REDIS CACHE: Check Redis cache first before querying database
+  // const cachedStatus = await redis.get(`voter_status:${epic}`);
+  // if (cachedStatus) return res.json(JSON.parse(cachedStatus));
+
+  // FALLBACK TO DB: Simulated DB Query (PostgreSQL / Firestore)
   const voter = db.voters.find(v => v.epic_number.toUpperCase() === epic.toUpperCase());
   
   if (voter) {
