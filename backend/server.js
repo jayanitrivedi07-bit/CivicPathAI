@@ -144,5 +144,5 @@ app.post('/api/reminders', (req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`VoteSathi AI Backend running on http://localhost:${PORT}`);
+  console.log(`CivicPathAI Backend running on http://localhost:${PORT}`);
 });
