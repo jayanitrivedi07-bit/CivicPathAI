@@ -1,5 +1,7 @@
 # 🗳️ CivicPathAI
 
+**Live Demo:** [https://civicpathai-1041121658831.asia-south1.run.app/](https://civicpathai-1041121658831.asia-south1.run.app/)
+
 CivicPathAI is a mobile-first civic utility application for Indian voters that guides users through the voting process using structured decision-based flows.
 
 It acts as a government-grade intelligent voting assistant that converts user confusion into clear, step-by-step actions instantly. This is a pure rule-based decision engine, **not a conversational chatbot**.
