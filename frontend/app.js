@@ -23,7 +23,8 @@ function navTo(screenId, navElement = null) {
       'screen-status': 1,
       'screen-booth': 2,
       'screen-checklist': 3,
-      'screen-reminders': 4
+      'screen-reminders': 4,
+      'screen-journey': 0
     };
     
     const index = mapping[screenId];
@@ -33,6 +34,13 @@ function navTo(screenId, navElement = null) {
   }
 
   document.getElementById('main-content').scrollTop = 0;
+}
+
+function handleKey(event, action) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    action();
+  }
 }
 
 // Load Timeline on startup
@@ -251,4 +259,69 @@ async function setReminders() {
   }
 
   btn.innerHTML = originalText;
+}
+
+// 🧭 My Voting Journey Logic
+function generateJourney() {
+  const age = document.getElementById('journey-age').value;
+  const status = document.getElementById('journey-reg-status').value;
+  const moved = document.getElementById('journey-moved').value;
+
+  if (!age || !status || !moved) {
+    alert('Please fill out all fields.');
+    return;
+  }
+
+  let steps = [];
+  let stepNum = 1;
+
+  if (age < 18) {
+    steps.push({ title: 'Not Eligible', desc: 'You must be 18 to vote.', action: null });
+  } else {
+    if (status === 'not-registered') {
+      steps.push({ title: `Step ${stepNum++}: Register to Vote`, desc: 'Fill out Form 6 online via the ECI portal.', action: { text: 'Register Now', link: 'https://voters.eci.gov.in' } });
+    } else if (moved === 'yes') {
+      steps.push({ title: `Step ${stepNum++}: Update Address`, desc: 'Fill out Form 8 online to shift your constituency.', action: { text: 'Update Address', link: 'https://voters.eci.gov.in' } });
+    }
+
+    steps.push({ title: `Step ${stepNum++}: Verify Registration`, desc: 'Check if your registration is active on the roll.', action: { text: 'Verify Status', func: "navTo('screen-status')" } });
+    steps.push({ title: `Step ${stepNum++}: Prepare Documents`, desc: 'Generate your required document checklist.', action: { text: 'Checklist', func: "navTo('screen-checklist')" } });
+    steps.push({ title: `Step ${stepNum++}: Find Polling Booth`, desc: 'Locate your exact voting booth.', action: { text: 'Find Booth', func: "navTo('screen-booth')" } });
+    steps.push({ title: `Step ${stepNum++}: Voting Day Instructions`, desc: 'Show up at the booth and cast your vote!', action: null });
+  }
+
+  const container = document.getElementById('journey-roadmap');
+  container.innerHTML = '<div class="timeline-card mt-15">' + steps.map((s, i) => `
+    <div class="timeline-item ${i === 0 ? 'active' : 'pending'}">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>${s.title}</h4>
+        <p>${s.desc}</p>
+        ${s.action ? (s.action.link ? `<button class="btn-secondary mt-10" style="padding:8px;" onclick="window.open('${s.action.link}')">${s.action.text}</button>` : `<button class="btn-secondary mt-10" style="padding:8px;" onclick="${s.action.func}">${s.action.text}</button>`) : ''}
+      </div>
+    </div>
+  `).join('') + '</div>';
+  
+  container.classList.remove('hidden');
+}
+
+// 🤖 Basic AI Support Logic (Rule-based redirects)
+function handleAiQuery() {
+  const input = document.getElementById('ai-query').value.trim().toLowerCase();
+  const resDiv = document.getElementById('ai-response');
+  if (!input) return;
+
+  resDiv.style.display = 'block';
+  
+  if (input.includes('register') || input.includes('apply')) {
+    resDiv.innerHTML = 'To register to vote, please use the <strong>Register</strong> action on the Home screen or go to the ECI portal.';
+  } else if (input.includes('status') || input.includes('check')) {
+    resDiv.innerHTML = 'You can check your voter status using the <strong>Status</strong> tab at the bottom.';
+  } else if (input.includes('booth') || input.includes('where')) {
+    resDiv.innerHTML = 'To find where to vote, tap the <strong>Booth</strong> tab to locate your polling station.';
+  } else if (input.includes('document') || input.includes('id') || input.includes('proof')) {
+    resDiv.innerHTML = 'Please use the <strong>Docs</strong> tab to generate your personalized document checklist.';
+  } else {
+    resDiv.innerHTML = 'I am a specialized civic assistant. Please navigate using the bottom tabs for status, booth finding, and document checklists.';
+  }
 }

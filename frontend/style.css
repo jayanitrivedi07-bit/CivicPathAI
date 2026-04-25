@@ -361,6 +361,12 @@ body {
   gap: 10px;
 }
 
+button:focus-visible,
+.action-card:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
 .hidden { display: none !important; }
 .mt-10 { margin-top: 10px; }
 .mt-15 { margin-top: 15px; }

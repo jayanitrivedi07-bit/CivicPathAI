@@ -18,12 +18,12 @@
   <div class="app-container">
     
     <!-- Top Bar -->
-    <header class="top-bar">
+    <header class="top-bar" role="banner">
       <div class="logo-area">
-        <i class="fa-solid fa-check-to-slot logo-icon"></i>
+        <i class="fa-solid fa-check-to-slot logo-icon" aria-hidden="true"></i>
         <h1>CivicPathAI</h1>
       </div>
-      <button id="install-button" class="btn-secondary hidden" style="padding: 6px 12px; width: auto; font-size: 13px;"><i class="fa-solid fa-download"></i> Install App</button>
+      <button id="install-button" class="btn-secondary hidden" style="padding: 6px 12px; width: auto; font-size: 13px;" aria-label="Install App as PWA"><i class="fa-solid fa-download"></i> Install App</button>
     </header>
 
     <!-- Main Content Area -->
@@ -34,32 +34,35 @@
         <div class="welcome-banner">
           <h2>Election Readiness 🇮🇳</h2>
           <p>Complete your voting tasks step-by-step.</p>
+          <button class="btn-primary mt-15" style="background: white; color: var(--primary); margin-top: 15px;" onclick="navTo('screen-journey')">
+            <i class="fa-solid fa-map-location-dot"></i> Start My Voting Journey
+          </button>
         </div>
 
         <h3 class="section-title">One-Click Action Hub</h3>
         <div class="action-grid">
-          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')">
-            <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus"></i></div>
+          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')" role="button" aria-label="Register to Vote (External Link)" tabindex="0" onkeydown="handleKey(event, () => window.open('https://voters.eci.gov.in', '_blank'))">
+            <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></div>
             <span>Register</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-status')">
-            <div class="icon-circle bg-blue"><i class="fa-solid fa-id-card"></i></div>
+          <div class="action-card" onclick="navTo('screen-status')" role="button" aria-label="Check Voter Registration Status" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-status'))">
+            <div class="icon-circle bg-blue"><i class="fa-solid fa-id-card" aria-hidden="true"></i></div>
             <span>Check Status</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-booth')">
-            <div class="icon-circle bg-orange"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="action-card" onclick="navTo('screen-booth')" role="button" aria-label="Find Polling Booth" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-booth'))">
+            <div class="icon-circle bg-orange"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></div>
             <span>Find Booth</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-checklist')">
-            <div class="icon-circle bg-green"><i class="fa-solid fa-list-check"></i></div>
+          <div class="action-card" onclick="navTo('screen-checklist')" role="button" aria-label="View Document Checklist" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-checklist'))">
+            <div class="icon-circle bg-green"><i class="fa-solid fa-list-check" aria-hidden="true"></i></div>
             <span>Checklist</span>
           </div>
-          <div class="action-card" onclick="navTo('screen-reminders')">
-            <div class="icon-circle bg-teal"><i class="fa-solid fa-clock"></i></div>
+          <div class="action-card" onclick="navTo('screen-reminders')" role="button" aria-label="Set Election Reminders" tabindex="0" onkeydown="handleKey(event, () => navTo('screen-reminders'))">
+            <div class="icon-circle bg-teal"><i class="fa-solid fa-clock" aria-hidden="true"></i></div>
             <span>Reminders</span>
           </div>
-          <div class="action-card" onclick="window.location.href='tel:1950'">
-            <div class="icon-circle bg-red"><i class="fa-solid fa-phone"></i></div>
+          <div class="action-card" onclick="window.location.href='tel:1950'" role="button" aria-label="Call Voter Helpline 1950" tabindex="0" onkeydown="handleKey(event, () => window.location.href='tel:1950')">
+            <div class="icon-circle bg-red"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
             <span>Helpline</span>
           </div>
         </div>
@@ -71,6 +74,42 @@
         <h3 class="section-title">Real-Time Election Timeline</h3>
         <div class="timeline-card" id="timeline-container">
           <p style="text-align: center; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading timeline...</p>
+        </div>
+      </section>
+
+      <!-- SCREEN: MY VOTING JOURNEY -->
+      <section id="screen-journey" class="screen">
+        <div class="screen-header">
+          <h2>🧭 My Voting Journey</h2>
+          <p>Get a personalized step-by-step roadmap.</p>
+        </div>
+        
+        <div id="journey-input-card" class="card">
+          <div class="input-group">
+            <label>Age</label>
+            <input type="number" id="journey-age" placeholder="e.g. 22" min="1" max="120" />
+          </div>
+          <div class="input-group mt-15">
+            <label>Registration Status</label>
+            <select id="journey-reg-status">
+              <option value="" disabled selected>Select status</option>
+              <option value="not-registered">Not Registered Yet</option>
+              <option value="registered">Registered</option>
+            </select>
+          </div>
+          <div class="input-group mt-15">
+            <label>Have you moved recently?</label>
+            <select id="journey-moved">
+              <option value="" disabled selected>Select option</option>
+              <option value="yes">Yes, to a different constituency/city</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <button class="btn-primary mt-15" onclick="generateJourney()">Generate Roadmap <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <div id="journey-roadmap" class="hidden">
+          <!-- Stepper UI generated here -->
         </div>
       </section>
 
@@ -215,28 +254,45 @@
     </main>
 
     <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-      <button class="nav-item active" onclick="navTo('screen-home', this)">
-        <i class="fa-solid fa-house"></i>
+    <nav class="bottom-nav" role="navigation">
+      <button class="nav-item active" onclick="navTo('screen-home', this)" aria-label="Home Dashboard">
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
         <span>Home</span>
       </button>
-      <button class="nav-item" onclick="navTo('screen-status', this)">
-        <i class="fa-solid fa-id-card"></i>
+      <button class="nav-item" onclick="navTo('screen-status', this)" aria-label="Check Voter Status">
+        <i class="fa-solid fa-id-card" aria-hidden="true"></i>
         <span>Status</span>
       </button>
-      <button class="nav-item" onclick="navTo('screen-booth', this)">
-        <i class="fa-solid fa-location-dot"></i>
+      <button class="nav-item" onclick="navTo('screen-booth', this)" aria-label="Find Polling Booth">
+        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
         <span>Booth</span>
       </button>
-      <button class="nav-item" onclick="navTo('screen-checklist', this)">
-        <i class="fa-solid fa-list-check"></i>
+      <button class="nav-item" onclick="navTo('screen-checklist', this)" aria-label="Document Checklist">
+        <i class="fa-solid fa-list-check" aria-hidden="true"></i>
         <span>Docs</span>
       </button>
-      <button class="nav-item" onclick="navTo('screen-reminders', this)">
-        <i class="fa-solid fa-bell"></i>
+      <button class="nav-item" onclick="navTo('screen-reminders', this)" aria-label="Election Reminders">
+        <i class="fa-solid fa-bell" aria-hidden="true"></i>
         <span>Reminders</span>
       </button>
     </nav>
+
+    <!-- AI SUPPORT BUTTON -->
+    <button class="ai-support-btn" onclick="document.getElementById('ai-modal').classList.remove('hidden')" style="position: absolute; bottom: 85px; right: 20px; width: 50px; height: 50px; border-radius: 25px; background: var(--primary); color: white; border: none; box-shadow: var(--shadow-lg); cursor: pointer; font-size: 20px; z-index: 50;">
+      <i class="fa-solid fa-circle-question"></i>
+    </button>
+
+    <!-- AI SUPPORT MODAL -->
+    <div id="ai-modal" class="hidden" style="position: absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: center; justify-content: center;">
+      <div class="card" style="width: 90%; max-width: 400px; padding: 20px;">
+        <h3 style="margin-bottom: 10px; color: var(--primary);"><i class="fa-solid fa-robot"></i> Civic Support</h3>
+        <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted);">I am a simple support assistant to help clarify the process. Need help?</p>
+        <textarea id="ai-query" placeholder="e.g. How do I register to vote?" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 15px; resize: none; font-family: inherit;"></textarea>
+        <button class="btn-primary" onclick="handleAiQuery()">Ask <i class="fa-solid fa-paper-plane"></i></button>
+        <button class="btn-secondary mt-10" onclick="document.getElementById('ai-modal').classList.add('hidden'); document.getElementById('ai-response').style.display = 'none'; document.getElementById('ai-query').value = '';">Close</button>
+        <div id="ai-response" class="mt-15" style="font-size: 14px; display:none; padding: 10px; background: var(--secondary); border-radius: 8px; border: 1px solid var(--border);"></div>
+      </div>
+    </div>
 
   </div>
 
