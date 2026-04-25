@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>VoteSathi AI — Your Personal Voting Assistant</title>
-  <meta name="description" content="VoteSathi AI — Step-by-step guidance for voting in India. Find your booth, check eligibility, and get your document checklist." />
+  <title>VoteSathi AI — India Voting Assistant</title>
+  <meta name="description" content="A government-grade voting assistant to help Indian citizens complete voting-related tasks step-by-step." />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -21,7 +21,6 @@
         <i class="fa-solid fa-check-to-slot logo-icon"></i>
         <h1>VoteSathi AI</h1>
       </div>
-      <button class="profile-btn" aria-label="Profile"><i class="fa-solid fa-circle-user"></i></button>
     </header>
 
     <!-- Main Content Area -->
@@ -30,12 +29,16 @@
       <!-- SCREEN: HOME / DASHBOARD -->
       <section id="screen-home" class="screen active">
         <div class="welcome-banner">
-          <h2>Ready to Vote? 🇮🇳</h2>
-          <p>Your personal assistant for the upcoming elections.</p>
+          <h2>Election Readiness 🇮🇳</h2>
+          <p>Complete your voting tasks step-by-step.</p>
         </div>
 
-        <h3 class="section-title">Quick Actions</h3>
+        <h3 class="section-title">One-Click Action Hub</h3>
         <div class="action-grid">
+          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')">
+            <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus"></i></div>
+            <span>Register</span>
+          </div>
           <div class="action-card" onclick="navTo('screen-status')">
             <div class="icon-circle bg-blue"><i class="fa-solid fa-id-card"></i></div>
             <span>Check Status</span>
@@ -46,190 +49,164 @@
           </div>
           <div class="action-card" onclick="navTo('screen-checklist')">
             <div class="icon-circle bg-green"><i class="fa-solid fa-list-check"></i></div>
-            <span>Documents</span>
+            <span>Checklist</span>
           </div>
-          <div class="action-card" onclick="window.open('https://voters.eci.gov.in', '_blank')">
-            <div class="icon-circle bg-purple"><i class="fa-solid fa-user-plus"></i></div>
-            <span>Register Now</span>
-          </div>
-          <div class="action-card" onclick="navTo('screen-nri')">
-            <div class="icon-circle bg-teal"><i class="fa-solid fa-plane-departure"></i></div>
-            <span>NRI Voters</span>
+          <div class="action-card" onclick="navTo('screen-reminders')">
+            <div class="icon-circle bg-teal"><i class="fa-solid fa-clock"></i></div>
+            <span>Reminders</span>
           </div>
           <div class="action-card" onclick="window.location.href='tel:1950'">
             <div class="icon-circle bg-red"><i class="fa-solid fa-phone"></i></div>
-            <span>Helpline 1950</span>
+            <span>Helpline</span>
           </div>
         </div>
+        
+        <button class="btn-secondary mt-15" style="margin-bottom: 25px;" onclick="navTo('screen-nri')">
+          <i class="fa-solid fa-plane"></i> View NRI Voting Guide
+        </button>
 
-        <h3 class="section-title">Live Election Timeline</h3>
-        <div class="timeline-card">
-          <div class="timeline-item completed">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h4>Voter Registration</h4>
-              <p>Closes 10 days before polling</p>
-            </div>
-          </div>
-          <div class="timeline-item active">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h4>Candidate Nominations</h4>
-              <p>Currently in progress</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h4>Voting Day</h4>
-              <p>Get ready with your Epic ID!</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <h4>Result Declaration</h4>
-              <p>To be announced</p>
-            </div>
-          </div>
+        <h3 class="section-title">Real-Time Election Timeline</h3>
+        <div class="timeline-card" id="timeline-container">
+          <p style="text-align: center; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Loading timeline...</p>
         </div>
       </section>
 
       <!-- SCREEN: POLLING BOOTH FINDER -->
       <section id="screen-booth" class="screen">
         <div class="screen-header">
-          <h2>📍 Find Polling Booth</h2>
-          <p>Enter your details to locate where you need to vote.</p>
+          <h2>📍 Where Do I Vote</h2>
+          <p>Find your designated polling booth location.</p>
         </div>
         <div class="card">
           <div class="input-group">
-            <label>EPIC Number or PIN Code</label>
+            <label>EPIC Number OR PIN Code</label>
             <input type="text" id="booth-input" placeholder="e.g. ABC1234567 or 110001" />
           </div>
-          <button class="btn-primary" onclick="findBooth()">Find Booth <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn-primary" onclick="findBooth()" id="btn-find-booth">Find Booth <i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-        <div id="booth-result" class="result-container hidden">
-          <div class="booth-card">
-            <h3>Govt. Primary School, Sector 4</h3>
-            <p><i class="fa-solid fa-map-pin"></i> Room No. 2, Sector 4, New Delhi - 110001</p>
-            <p><i class="fa-solid fa-person-walking"></i> ~1.2 km away</p>
-            <button class="btn-secondary mt-10" onclick="window.open('https://maps.google.com/?q=New+Delhi', '_blank')">
-              <i class="fa-solid fa-location-arrow"></i> Navigate
-            </button>
-          </div>
-        </div>
+        <div id="booth-result" class="result-container hidden"></div>
       </section>
 
       <!-- SCREEN: CHECK STATUS -->
       <section id="screen-status" class="screen">
         <div class="screen-header">
-          <h2>🔍 Voter Status</h2>
-          <p>Check if your name is on the electoral roll.</p>
+          <h2>🔍 Am I Registered</h2>
+          <p>Check if your name is on the current electoral roll.</p>
         </div>
         <div class="card">
           <div class="input-group">
             <label>EPIC Number</label>
             <input type="text" id="status-epic" placeholder="e.g. ABC1234567" />
           </div>
-          <div class="divider"><span>OR</span></div>
-          <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="status-name" placeholder="John Doe" />
-          </div>
-          <div class="input-group">
-            <label>Date of Birth</label>
-            <input type="date" id="status-dob" />
-          </div>
-          <button class="btn-primary" onclick="checkStatus()">Check Status <i class="fa-solid fa-magnifying-glass"></i></button>
+          <button class="btn-primary" onclick="checkStatus()" id="btn-check-status">Check Registration <i class="fa-solid fa-check"></i></button>
         </div>
-        <div id="status-result" class="result-container hidden">
-          <!-- Dynamic Content -->
-        </div>
+        <div id="status-result" class="result-container hidden"></div>
       </section>
 
       <!-- SCREEN: SMART CHECKLIST -->
       <section id="screen-checklist" class="screen">
         <div class="screen-header">
           <h2>🧾 Document Checklist</h2>
-          <p>Get a personalized list of documents needed.</p>
+          <p>Get a personalized required document list.</p>
         </div>
-        <div class="card" id="checklist-step-1">
+        <div class="card">
           <div class="input-group">
-            <label>How old are you?</label>
-            <input type="number" id="checklist-age" placeholder="e.g. 22" />
+            <label>Age</label>
+            <input type="number" id="checklist-age" placeholder="e.g. 22" min="1" max="120" />
           </div>
           <div class="input-group mt-15">
-            <label>What is your current situation?</label>
+            <label>Voting Status</label>
             <select id="checklist-situation">
-              <option value="" disabled selected>Select an option</option>
+              <option value="" disabled selected>Select status</option>
               <option value="first-time">First-time Voter (Not Registered)</option>
               <option value="registered">Already Registered</option>
               <option value="moved">Recently Moved Cities</option>
             </select>
           </div>
-          <button class="btn-primary mt-15" onclick="generateChecklist()">Generate List <i class="fa-solid fa-wand-magic-sparkles"></i></button>
+          <button class="btn-primary mt-15" onclick="generateChecklist()" id="btn-checklist">Generate Checklist <i class="fa-solid fa-list"></i></button>
         </div>
-        <div id="checklist-result" class="result-container hidden">
-          <!-- Dynamic Content -->
+        <div id="checklist-result" class="result-container hidden"></div>
+      </section>
+
+      <!-- SCREEN: REMINDERS -->
+      <section id="screen-reminders" class="screen">
+        <div class="screen-header">
+          <h2>⏰ Election Day Reminders</h2>
+          <p>Never miss a voting deadline. Set your alerts.</p>
         </div>
+        <div class="card">
+          <div class="input-group">
+            <label>Select State / Union Territory</label>
+            <select id="reminder-state">
+              <option value="" disabled selected>Select your state</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+            </select>
+          </div>
+          
+          <div class="input-group mt-15">
+            <label>Phone Number (for SMS Alerts)</label>
+            <input type="tel" id="reminder-phone" placeholder="10-digit mobile number" maxlength="10" />
+          </div>
+
+          <div class="checkbox-group mt-15">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rem-1day" checked>
+              <span>Remind me 1 day before election</span>
+            </label>
+          </div>
+          <div class="checkbox-group mt-10">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rem-morning" checked>
+              <span>Remind me on election day morning</span>
+            </label>
+          </div>
+          
+          <button class="btn-primary mt-15" onclick="setReminders()" id="btn-reminders">Save Preferences <i class="fa-solid fa-floppy-disk"></i></button>
+        </div>
+        <div id="reminder-result" class="result-container hidden"></div>
       </section>
 
       <!-- SCREEN: NRI MODE -->
       <section id="screen-nri" class="screen">
         <div class="screen-header">
           <h2>✈️ NRI Voting Guide</h2>
-          <p>Everything you need to know to vote from abroad.</p>
+          <p>Static flow guidance for overseas Indian citizens.</p>
         </div>
-        <div class="nri-cards">
-          <div class="info-accordion" onclick="toggleAccordion(this)">
-            <div class="accordion-head">
-              <h3><i class="fa-solid fa-passport"></i> Eligibility</h3>
-              <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div class="accordion-body">
-              Indian citizens living abroad who have NOT acquired foreign citizenship can register as overseas voters.
+        <div class="card p-0 overflow-hidden">
+          <div class="nri-step border-bottom">
+            <div class="nri-step-num">1</div>
+            <div class="nri-step-content">
+              <h4>Eligibility Rules</h4>
+              <p>Must be a citizen of India absent from place of ordinary residence in India owing to employment, education or otherwise. Must NOT have acquired citizenship of any other country.</p>
             </div>
           </div>
-          <div class="info-accordion" onclick="toggleAccordion(this)">
-            <div class="accordion-head">
-              <h3><i class="fa-solid fa-pen-to-square"></i> Registration</h3>
-              <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div class="accordion-body">
-              Fill Form 6A online on the ECI portal. You'll need your valid Indian Passport and visa details.
+          <div class="nri-step border-bottom">
+            <div class="nri-step-num">2</div>
+            <div class="nri-step-content">
+              <h4>Form 6A Process</h4>
+              <p>Download or fill Form 6A online at the ECI portal. Attach self-attested copies of your valid passport pages containing your photo and valid visa.</p>
             </div>
           </div>
-          <div class="info-accordion" onclick="toggleAccordion(this)">
-            <div class="accordion-head">
-              <h3><i class="fa-solid fa-building-columns"></i> How to Vote</h3>
-              <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div class="accordion-body">
-              Currently, NRIs must travel to India to vote in person at their registered constituency. E-postal ballots are being considered but not fully implemented.
+          <div class="nri-step border-bottom">
+            <div class="nri-step-num">3</div>
+            <div class="nri-step-content">
+              <h4>Embassy Limitations</h4>
+              <p>You cannot cast your vote at an embassy. Overseas electors must vote in person at their designated polling station in India.</p>
             </div>
           </div>
-        </div>
-        <button class="btn-primary mt-15" onclick="window.open('https://voters.eci.gov.in', '_blank')">Apply via Form 6A <i class="fa-solid fa-external-link"></i></button>
-      </section>
-
-      <!-- SCREEN: AI CHAT ASSISTANT -->
-      <section id="screen-chat" class="screen chat-screen">
-        <div class="chat-header">
-          <div class="chat-avatar"><i class="fa-solid fa-robot"></i></div>
-          <div class="chat-title">
-            <h3>AI Voting Assistant</h3>
-            <p>Online &bull; Ask me anything!</p>
+          <div class="nri-step">
+            <div class="nri-step-num">4</div>
+            <div class="nri-step-content">
+              <h4>Deadlines</h4>
+              <p>Registration must be completed at least a few weeks prior to the finalization of the electoral roll. Check the live timeline for exact dates.</p>
+            </div>
           </div>
         </div>
-        <div class="chat-messages" id="chat-messages">
-          <div class="message ai-message">
-            Hi! 👋 I'm your VoteSathi AI. Need help finding your booth, checking what documents you need, or registering to vote? Just ask!
-          </div>
-        </div>
-        <div class="chat-input-area">
-          <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleChatKeyPress(event)" />
-          <button class="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
-        </div>
+        <button class="btn-primary mt-15" onclick="window.open('https://voters.eci.gov.in', '_blank')">Access Form 6A <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
       </section>
 
     </main>
@@ -240,20 +217,21 @@
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
       </button>
-      <button class="nav-item" onclick="navTo('screen-checklist', this)">
-        <i class="fa-solid fa-list-check"></i>
-        <span>Docs</span>
-      </button>
-      <button class="nav-item float-btn" onclick="navTo('screen-chat', this)">
-        <div class="ai-fab"><i class="fa-solid fa-robot"></i></div>
+      <button class="nav-item" onclick="navTo('screen-status', this)">
+        <i class="fa-solid fa-id-card"></i>
+        <span>Status</span>
       </button>
       <button class="nav-item" onclick="navTo('screen-booth', this)">
         <i class="fa-solid fa-location-dot"></i>
         <span>Booth</span>
       </button>
-      <button class="nav-item" onclick="navTo('screen-status', this)">
-        <i class="fa-solid fa-id-card"></i>
-        <span>Status</span>
+      <button class="nav-item" onclick="navTo('screen-checklist', this)">
+        <i class="fa-solid fa-list-check"></i>
+        <span>Docs</span>
+      </button>
+      <button class="nav-item" onclick="navTo('screen-reminders', this)">
+        <i class="fa-solid fa-bell"></i>
+        <span>Reminders</span>
       </button>
     </nav>
 
